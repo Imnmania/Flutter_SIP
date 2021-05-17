@@ -1,6 +1,9 @@
+// import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:kothon_app/presentation/home/home.dart';
-import 'package:transition/transition.dart';
+import 'package:kothon_app/presentation/splash/widgets/animated_image.dart';
+// import 'package:kothon_app/presentation/login/login_screen.dart';
+// import 'package:transition/transition.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -9,26 +12,36 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: MaterialButton(
-          color: Colors.green,
-          child: Text('Button'),
-          onPressed: () {
-            // Navigator.push(
-            //     context, MaterialPageRoute(builder: (context) => HomeScreen()));
+  void initState() {
+    super.initState();
+    // _splashTimeOut();
+  }
 
-            Navigator.push(
-                context,
-                Transition(
-                    child: HomeScreen(
-                      data: "Hunky Punky",
-                    ),
-                    transitionEffect: TransitionEffect.FADE));
-          },
+  @override
+  Widget build(BuildContext context) {
+    final topPadding = MediaQuery.of(context).padding.top;
+
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: topPadding,
+            ),
+            AnimatedImage(),
+          ],
         ),
       ),
     );
   }
+
+  // _splashTimeOut() {
+  //   Timer(Duration(seconds: 3), () {
+  //     Navigator.pushAndRemoveUntil(
+  //         context, Transition(child: LoginScreen()), (route) => false);
+  //   });
+  // }
 }
