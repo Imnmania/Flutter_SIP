@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-  final String data;
-
-  const HomeScreen({Key? key, required this.data}) : super(key: key);
+  const HomeScreen({
+    Key? key,
+  }) : super(key: key);
   @override
   HomeScreenState createState() => HomeScreenState();
 }
@@ -14,7 +14,7 @@ class HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.amber,
       body: Center(
-        child: Text(widget.data),
+        child: Text('Home Screen'),
       ),
     );
   }

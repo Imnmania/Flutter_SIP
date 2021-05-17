@@ -1,9 +1,11 @@
 // import 'dart:async';
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:kothon_app/presentation/splash/widgets/animated_image.dart';
-// import 'package:kothon_app/presentation/login/login_screen.dart';
-// import 'package:transition/transition.dart';
+import 'package:kothon_app/presentation/login/login_screen.dart';
+import 'package:transition/transition.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -14,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // _splashTimeOut();
+    _splashTimeOut();
   }
 
   @override
@@ -38,10 +40,15 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  // _splashTimeOut() {
-  //   Timer(Duration(seconds: 3), () {
-  //     Navigator.pushAndRemoveUntil(
-  //         context, Transition(child: LoginScreen()), (route) => false);
-  //   });
-  // }
+  _splashTimeOut() async {
+    Timer(Duration(seconds: 2), () {
+      Navigator.pushAndRemoveUntil(
+          context,
+          Transition(
+            child: LoginScreen(),
+            transitionEffect: TransitionEffect.FADE,
+          ),
+          (route) => false);
+    });
+  }
 }

@@ -11,7 +11,7 @@ class _AnimatedImageState extends State<AnimatedImage>
   //
   late final AnimationController _controller = AnimationController(
     vsync: this,
-    duration: Duration(seconds: 3),
+    duration: Duration(seconds: 2),
   )..repeat(reverse: true);
 
   late final Animation<Offset> _animation = Tween<Offset>(
@@ -29,8 +29,8 @@ class _AnimatedImageState extends State<AnimatedImage>
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
   @override

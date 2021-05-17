@@ -12,7 +12,9 @@ class MyApp extends StatelessWidget {
       title: 'Kothon',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Color(0xFF59E8F1),
+        scaffoldBackgroundColor: Color(0xFFF9FAC7),
+        fontFamily: 'Nunito',
       ),
       home: SplashScreen(),
     );
