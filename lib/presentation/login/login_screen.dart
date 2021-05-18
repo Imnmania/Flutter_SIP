@@ -35,8 +35,8 @@ class _LoginScreenState extends State<LoginScreen> {
     //   width: 150,
     //   height: 150,
     // );
-    final sWidth = MediaQuery.of(context).size.width;
-    final sHeight = MediaQuery.of(context).size.width;
+    // final sWidth = MediaQuery.of(context).size.width;
+    // final sHeight = MediaQuery.of(context).size.width;
     //
     final serverUriController = TextEditingController();
     final userNameController = TextEditingController();
