@@ -12,7 +12,7 @@ class _AnimatedImageState extends State<AnimatedImage>
   late final AnimationController _controller = AnimationController(
     vsync: this,
     duration: Duration(seconds: 2),
-  )..repeat(reverse: true);
+  )..repeat(reverse: false);
 
   late final Animation<Offset> _animation = Tween<Offset>(
     begin: Offset(0, -0.08),

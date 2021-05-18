@@ -41,14 +41,13 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _splashTimeOut() async {
-    Timer(Duration(seconds: 2), () {
-      Navigator.pushAndRemoveUntil(
-          context,
-          Transition(
-            child: LoginScreen(),
-            transitionEffect: TransitionEffect.FADE,
-          ),
-          (route) => false);
-    });
+    await Future.delayed(Duration(seconds: 2));
+    Navigator.pushAndRemoveUntil(
+        context,
+        Transition(
+          child: LoginScreen(),
+          transitionEffect: TransitionEffect.FADE,
+        ),
+        (route) => false);
   }
 }

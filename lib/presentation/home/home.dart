@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kothon_app/presentation/home/widgets/kothon_header.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -11,10 +12,16 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    //
+    final sHeight = MediaQuery.of(context).size.height;
+    final sWidth = MediaQuery.of(context).size.width;
+    //
     return Scaffold(
-      backgroundColor: Colors.amber,
-      body: Center(
-        child: Text('Home Screen'),
+      body: Stack(
+        alignment: Alignment.center,
+        children: [
+          KothonHeader(sHeight: sHeight, sWidth: sWidth),
+        ],
       ),
     );
   }
