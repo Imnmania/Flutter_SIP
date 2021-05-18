@@ -117,32 +117,32 @@ Widget? gridIcon(String title) {
     case "0":
       return FaIcon(
         FontAwesomeIcons.phoneVolume,
-        size: 65,
+        size: 45,
       );
     case "1":
       return FaIcon(
         FontAwesomeIcons.commentsDollar,
-        size: 60,
+        size: 40,
       );
     case "2":
       return FaIcon(
         FontAwesomeIcons.mailBulk,
-        size: 60,
+        size: 40,
       );
     case "3":
       return FaIcon(
         FontAwesomeIcons.clipboardCheck,
-        size: 60,
+        size: 40,
       );
     case "4":
       return FaIcon(
         FontAwesomeIcons.cannabis,
-        size: 60,
+        size: 40,
       );
     case "5":
       return FaIcon(
         FontAwesomeIcons.joint,
-        size: 60,
+        size: 40,
       );
 
     default:

@@ -2,7 +2,10 @@ import 'package:auto_animated/auto_animated.dart';
 import 'package:flutter/material.dart';
 import 'package:kothon_app/constants/kothon_colors.dart';
 import 'package:kothon_app/presentation/common_widgets/kothon_header.dart';
+import 'package:kothon_app/presentation/common_widgets/show_toast.dart';
+import 'package:kothon_app/presentation/communication_module/comm_home.dart';
 import 'package:kothon_app/presentation/home/widgets/grid_utils.dart';
+import 'package:transition/transition.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -49,15 +52,15 @@ class HomeScreenState extends State<HomeScreen> {
                 //   }),
                 // ),
                 child: LiveGrid(
-                  padding: EdgeInsets.all(16),
+                  padding: EdgeInsets.all(36),
                   showItemInterval: Duration(milliseconds: 60),
                   showItemDuration: Duration(milliseconds: 150),
                   visibleFraction: 0.001,
                   itemCount: 6,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
+                    crossAxisSpacing: 26,
+                    mainAxisSpacing: 26,
                   ),
                   itemBuilder: animationItemBuilder((index) => HorizontalItem(
                         title: index.toString(),
@@ -67,30 +70,47 @@ class HomeScreenState extends State<HomeScreen> {
                             case 0:
                               {
                                 print("aye 0");
+                                Navigator.push(
+                                  context,
+                                  Transition(
+                                    child: CommunicationHome(),
+                                    transitionEffect: TransitionEffect.FADE,
+                                  ),
+                                );
                               }
                               break;
                             case 1:
                               {
+                                futureToast(
+                                    context: context, message: "Coming Soon!");
                                 print("aye 1");
                               }
                               break;
                             case 2:
                               {
+                                futureToast(
+                                    context: context, message: "Coming Soon!");
                                 print("aye 2");
                               }
                               break;
                             case 3:
                               {
+                                futureToast(
+                                    context: context, message: "Coming Soon!");
                                 print("aye 3");
                               }
                               break;
                             case 4:
                               {
+                                futureToast(
+                                    context: context, message: "Coming Soon!");
                                 print("aye 4");
                               }
                               break;
                             case 5:
                               {
+                                futureToast(
+                                    context: context, message: "Coming Soon!");
                                 print("aye 5");
                               }
                               break;
