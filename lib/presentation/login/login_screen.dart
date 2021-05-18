@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kothon_app/constants/kothon_colors.dart';
-import 'package:kothon_app/constants/kothon_icons.dart';
+import 'package:kothon_app/presentation/common_widgets/kothon_icons.dart';
 import 'package:kothon_app/presentation/home/home.dart';
 import 'package:kothon_app/presentation/login/widgets/login_field.dart';
 // ignore: import_of_legacy_library_into_null_safe

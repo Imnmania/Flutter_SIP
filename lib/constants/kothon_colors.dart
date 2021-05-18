@@ -14,4 +14,5 @@ class KothonColors {
   static Color numpadDivColor = Color(0xFF72E5EC);
   static Color dialPadHeaderColor = Color(0xFF3C5364);
   static Color offWhite = Color(0xFFFEFEFE);
+  static Color homeTopSectionBackground = Color(0xFFFFF3B7);
 }
