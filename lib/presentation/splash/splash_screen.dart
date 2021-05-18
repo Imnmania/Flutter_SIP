@@ -1,10 +1,8 @@
-// import 'dart:async';
-
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:kothon_app/presentation/splash/widgets/animated_image.dart';
+// import 'package:kothon_app/presentation/splash/widgets/animated_image.dart';
 import 'package:kothon_app/presentation/login/login_screen.dart';
+import 'package:kothon_app/presentation/splash/widgets/animated_image_2.dart';
 import 'package:transition/transition.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -33,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
             SizedBox(
               height: topPadding,
             ),
-            AnimatedImage(),
+            AnimatedImage2(),
           ],
         ),
       ),
@@ -41,12 +39,12 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _splashTimeOut() async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 3));
     Navigator.pushAndRemoveUntil(
         context,
         Transition(
           child: LoginScreen(),
-          transitionEffect: TransitionEffect.FADE,
+          transitionEffect: TransitionEffect.SCALE,
         ),
         (route) => false);
   }

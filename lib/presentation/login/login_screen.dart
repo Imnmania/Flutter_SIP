@@ -46,33 +46,33 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: Stack(
           children: [
-            Positioned(
-              top: 0,
-              child: Container(
-                width: sWidth,
-                height: sHeight * 0.13,
-                color: KothonColors.barBodyColor,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: 20,
-                    ),
-                    KothonIcons().svg(),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      'KOTHON',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w900,
-                          color: KothonColors.logoTextColor,
-                          fontSize: 18),
-                    )
-                  ],
-                ),
-              ),
-            ),
+            // Positioned(
+            //   top: 0,
+            //   child: Container(
+            //     width: sWidth,
+            //     height: sHeight * 0.13,
+            //     color: KothonColors.barBodyColor,
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.start,
+            //       children: [
+            //         SizedBox(
+            //           width: 20,
+            //         ),
+            //         KothonIcons().svg(),
+            //         SizedBox(
+            //           width: 10,
+            //         ),
+            //         Text(
+            //           'KOTHON',
+            //           style: TextStyle(
+            //               fontWeight: FontWeight.w900,
+            //               color: KothonColors.logoTextColor,
+            //               fontSize: 18),
+            //         )
+            //       ],
+            //     ),
+            //   ),
+            // ),
             Container(
               padding: EdgeInsets.symmetric(
                 vertical: 10,

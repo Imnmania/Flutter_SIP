@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kothon_app/presentation/home/widgets/kothon_header.dart';
+import 'package:kothon_app/presentation/common_widgets/kothon_header.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
