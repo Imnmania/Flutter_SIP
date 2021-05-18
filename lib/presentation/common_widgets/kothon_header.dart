@@ -5,10 +5,7 @@ import 'package:kothon_app/presentation/common_widgets/show_toast.dart';
 import 'package:switcher_button/switcher_button.dart';
 
 class KothonHeader extends StatefulWidget {
-  final double sHeight;
-  final double sWidth;
-
-  const KothonHeader({required this.sHeight, required this.sWidth}) : super();
+  KothonHeader() : super();
   @override
   KothonHeaderState createState() => KothonHeaderState();
 }
@@ -21,10 +18,10 @@ class KothonHeaderState extends State<KothonHeader> {
   Widget build(BuildContext context) {
     //
     var topPadding = MediaQuery.of(context).padding.top;
+    var sWidth = MediaQuery.of(context).size.width;
     //
     return Container(
-      width: widget.sWidth,
-      // height: widget.sHeight * 0.065,
+      width: sWidth,
       color: KothonColors.barBodyColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

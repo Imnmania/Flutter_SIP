@@ -20,7 +20,7 @@ class HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     //
     final sHeight = MediaQuery.of(context).size.height;
-    final sWidth = MediaQuery.of(context).size.width;
+    // final sWidth = MediaQuery.of(context).size.width;
     //
     return Scaffold(
       body: Stack(
@@ -34,23 +34,6 @@ class HomeScreenState extends State<HomeScreen> {
                 height: sHeight * 0.5,
                 padding: EdgeInsets.only(top: sHeight * 0.11),
                 color: KothonColors.homeTopSectionBackground,
-                // child: GridView.count(
-                //   primary: false,
-                //   crossAxisCount: 3,
-                //   padding: const EdgeInsets.all(20),
-                //   children: List.generate(6, (index) {
-                //     return Center(
-                //       child: Container(
-                //         height: sHeight * 0.13,
-                //         width: sHeight * 0.13,
-                //         decoration: BoxDecoration(
-                //             borderRadius: BorderRadius.circular(10),
-                //             color: KothonColors.barBodyColor),
-                //         child: Text('Item $index'),
-                //       ),
-                //     );
-                //   }),
-                // ),
                 child: LiveGrid(
                   padding: EdgeInsets.all(36),
                   showItemInterval: Duration(milliseconds: 60),
@@ -125,7 +108,7 @@ class HomeScreenState extends State<HomeScreen> {
           ),
           Positioned(
             top: 0,
-            child: KothonHeader(sHeight: sHeight, sWidth: sWidth),
+            child: KothonHeader(),
           ),
         ],
       ),
