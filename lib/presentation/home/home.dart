@@ -45,62 +45,64 @@ class HomeScreenState extends State<HomeScreen> {
                     crossAxisSpacing: 26,
                     mainAxisSpacing: 26,
                   ),
-                  itemBuilder: animationItemBuilder((index) => HorizontalItem(
-                        title: index.toString(),
-                        onClick: () {
-                          print(index);
-                          switch (index) {
-                            case 0:
-                              {
-                                print("aye 0");
-                                Navigator.push(
-                                  context,
-                                  Transition(
-                                      child: CommunicationHome(),
-                                      transitionEffect: TransitionEffect.FADE),
-                                );
-                              }
-                              break;
-                            case 1:
-                              {
-                                futureToast(
-                                    context: context, message: "Coming Soon!");
-                                print("aye 1");
-                              }
-                              break;
-                            case 2:
-                              {
-                                futureToast(
-                                    context: context, message: "Coming Soon!");
-                                print("aye 2");
-                              }
-                              break;
-                            case 3:
-                              {
-                                futureToast(
-                                    context: context, message: "Coming Soon!");
-                                print("aye 3");
-                              }
-                              break;
-                            case 4:
-                              {
-                                futureToast(
-                                    context: context, message: "Coming Soon!");
-                                print("aye 4");
-                              }
-                              break;
-                            case 5:
-                              {
-                                futureToast(
-                                    context: context, message: "Coming Soon!");
-                                print("aye 5");
-                              }
-                              break;
-                            default:
-                              break;
-                          }
-                        },
-                      )),
+                  itemBuilder: animationItemBuilder(
+                    (index) => HorizontalItem(
+                      title: index.toString(),
+                      onClick: () {
+                        print(index);
+                        switch (index) {
+                          case 0:
+                            {
+                              print("aye 0");
+                              Navigator.push(
+                                context,
+                                Transition(
+                                    child: CommunicationHome(),
+                                    transitionEffect: TransitionEffect.FADE),
+                              );
+                            }
+                            break;
+                          case 1:
+                            {
+                              futureToast(
+                                  context: context, message: "Coming Soon!");
+                              print("aye 1");
+                            }
+                            break;
+                          case 2:
+                            {
+                              futureToast(
+                                  context: context, message: "Coming Soon!");
+                              print("aye 2");
+                            }
+                            break;
+                          case 3:
+                            {
+                              futureToast(
+                                  context: context, message: "Coming Soon!");
+                              print("aye 3");
+                            }
+                            break;
+                          case 4:
+                            {
+                              futureToast(
+                                  context: context, message: "Coming Soon!");
+                              print("aye 4");
+                            }
+                            break;
+                          case 5:
+                            {
+                              futureToast(
+                                  context: context, message: "Coming Soon!");
+                              print("aye 5");
+                            }
+                            break;
+                          default:
+                            break;
+                        }
+                      },
+                    ),
+                  ),
                 ),
               ),
             ],

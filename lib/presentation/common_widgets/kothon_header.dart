@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kothon_app/constants/enums.dart';
 // import 'package:switcher_button/switcher_button.dart';
 
 import 'package:kothon_app/constants/kothon_colors.dart';
+import 'package:kothon_app/logic/cubit/internet_cubit.dart';
 import 'package:kothon_app/logic/cubit/toggle_button_cubit.dart';
 import 'package:kothon_app/presentation/common_widgets/kothon_icons.dart';
 import 'package:kothon_app/presentation/common_widgets/show_toast.dart';
@@ -80,6 +83,37 @@ class KothonHeaderState extends State<KothonHeader> {
               ),
               Row(
                 children: [
+                  BlocConsumer<InternetCubit, InternetState>(
+                    listener: (context, state) {
+                      // do something
+                    },
+                    builder: (context, state) {
+                      if (state is InternetConnected &&
+                          state.connectionType == ConnectionType.Mobile) {
+                        return FaIcon(
+                          FontAwesomeIcons.mobileAlt,
+                          size: 15,
+                          color: Colors.green,
+                        );
+                      } else if (state is InternetConnected &&
+                          state.connectionType == ConnectionType.Wifi) {
+                        return FaIcon(
+                          FontAwesomeIcons.wifi,
+                          size: 15,
+                          color: Colors.green,
+                        );
+                      } else {
+                        return FaIcon(
+                          FontAwesomeIcons.exclamationTriangle,
+                          color: Colors.red,
+                          size: 15,
+                        );
+                      }
+                    },
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
                   BlocConsumer<ToggleButtonCubit, ToggleButtonState>(
                     listener: (context, state) {
                       //implement listener
