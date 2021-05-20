@@ -56,9 +56,8 @@ class HomeScreenState extends State<HomeScreen> {
                                 Navigator.push(
                                   context,
                                   Transition(
-                                    child: CommunicationHome(),
-                                    transitionEffect: TransitionEffect.FADE,
-                                  ),
+                                      child: CommunicationHome(),
+                                      transitionEffect: TransitionEffect.FADE),
                                 );
                               }
                               break;
@@ -109,7 +108,7 @@ class HomeScreenState extends State<HomeScreen> {
           Positioned(
             top: 0,
             child: KothonHeader(),
-          ),
+          )
         ],
       ),
     );

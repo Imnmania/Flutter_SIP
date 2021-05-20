@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_switch/flutter_switch.dart';
+// import 'package:switcher_button/switcher_button.dart';
+
 import 'package:kothon_app/constants/kothon_colors.dart';
+import 'package:kothon_app/logic/cubit/toggle_button_cubit.dart';
 import 'package:kothon_app/presentation/common_widgets/kothon_icons.dart';
 import 'package:kothon_app/presentation/common_widgets/show_toast.dart';
-import 'package:switcher_button/switcher_button.dart';
+// import 'package:kothon_app/presentation/common_widgets/show_toast.dart';
 
 class KothonHeader extends StatefulWidget {
-  KothonHeader() : super();
+  KothonHeader({
+    Key? key,
+  }) : super();
   @override
   KothonHeaderState createState() => KothonHeaderState();
 }
 
 class KothonHeaderState extends State<KothonHeader> {
   //
-  bool _isOnline = true;
+  // bool _isOnline = true;
   //
   @override
   Widget build(BuildContext context) {
@@ -73,37 +80,52 @@ class KothonHeaderState extends State<KothonHeader> {
               ),
               Row(
                 children: [
-                  // FlutterSwitch(
-                  //   toggleSize: 15,
-                  //   height: 22,
-                  //   width: 50,
-                  //   borderRadius: 30,
-                  //   activeToggleColor: KothonColors.switchActiveColor,
-                  //   activeColor: KothonColors.toggleBtnColor,
-                  //   value: _isOnline,
-                  //   onToggle: (_) {
-                  //     setState(
-                  //       () {
-                  //         _isOnline = !_isOnline;
-                  //         print(_isOnline);
+                  BlocConsumer<ToggleButtonCubit, ToggleButtonState>(
+                    listener: (context, state) {
+                      //implement listener
+                      if (state.toggleValue) {
+                        futureToast(context: context, message: 'Online');
+                      } else {
+                        futureToast(context: context, message: 'Offline');
+                      }
+                    },
+                    builder: (context, state) {
+                      return FlutterSwitch(
+                        toggleSize: 15,
+                        height: 22,
+                        width: 50,
+                        borderRadius: 30,
+                        activeToggleColor: KothonColors.switchActiveColor,
+                        activeColor: KothonColors.toggleBtnColor,
+                        value: state.toggleValue,
+                        onToggle: (value) {
+                          context.read<ToggleButtonCubit>().onToggleButtonPress(
+                              value: value, intValue: state.intValue + 1);
+                        },
+                      );
+                    },
+                  ),
+                  // BlocBuilder<ToggleButtonCubit, ToggleButtonState>(
+                  //   builder: (context, state) {
+                  //     return SwitcherButton(
+                  //       value: state.toggleValue,
+                  //       onColor: KothonColors.switchActiveColor,
+                  //       offColor: KothonColors.toggleBtnColor,
+                  //       size: 50,
+                  //       onChange: (value) {
+                  //         // _isOnline = !value;
+                  //         context.read<ToggleButtonCubit>().onToggleButtonPress(
+                  //             value: !value, intValue: state.intValue + 1);
+                  //         // print(value);
+                  //         futureToast(
+                  //           context: context,
+                  //           // message: value ? "Online" : "Offline",
+                  //           message: state.intValue.toString(),
+                  //         );
                   //       },
                   //     );
                   //   },
                   // ),
-                  SwitcherButton(
-                    value: _isOnline,
-                    onColor: KothonColors.switchActiveColor,
-                    offColor: KothonColors.toggleBtnColor,
-                    size: 50,
-                    onChange: (value) {
-                      _isOnline = !value;
-                      print(value);
-                      futureToast(
-                        context: context,
-                        message: value ? "Online" : "Offline",
-                      );
-                    },
-                  ),
                   SizedBox(
                     width: 20,
                   ),
