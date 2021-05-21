@@ -44,8 +44,8 @@ class _SplashScreenState extends State<SplashScreen> {
         context,
         Transition(
           child: LoginScreen(),
-          transitionEffect: TransitionEffect.SCALE,
-        ),
+          transitionEffect: TransitionEffect.scale,
+        ).builder(),
         (route) => false);
   }
 }

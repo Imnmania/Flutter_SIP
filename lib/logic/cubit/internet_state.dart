@@ -6,10 +6,10 @@ abstract class InternetState {}
 class InternetLoading extends InternetState {}
 
 class InternetConnected extends InternetState {
-  late final ConnectionType connectionType;
+  final ConnectionType connectionType;
 
   InternetConnected({
-    required this.connectionType,
+    @required this.connectionType,
   });
 }
 

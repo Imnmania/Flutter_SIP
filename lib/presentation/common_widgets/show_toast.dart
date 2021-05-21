@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 Future<ToastFuture> futureToast({
-  required BuildContext context,
-  required String message,
+  @required BuildContext context,
+  @required String message,
 }) async {
   return showToast(
     message,

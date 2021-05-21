@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class LoginField extends StatelessWidget {
   const LoginField({
-    required this.serverUriController,
-    required this.header,
-    required this.hintText,
-    Key? key,
+    @required this.serverUriController,
+    @required this.header,
+    @required this.hintText,
+    Key key,
   }) : super(key: key);
 
   final TextEditingController serverUriController;

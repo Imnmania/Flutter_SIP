@@ -135,8 +135,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         context,
                         Transition(
                           child: HomeScreen(),
-                          transitionEffect: TransitionEffect.FADE,
-                        ),
+                          transitionEffect: TransitionEffect.fade,
+                        ).builder(),
                       );
                     },
                   ),
@@ -149,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Future<PermissionStatus?> getPermissions() async {
+  Future<PermissionStatus> getPermissions() async {
     // final PermissionStatus permission = await Permission.contacts.status;
 
     // if (permission != PermissionStatus.granted &&

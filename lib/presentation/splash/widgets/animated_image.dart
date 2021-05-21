@@ -9,16 +9,15 @@ class AnimatedImage extends StatefulWidget {
 class _AnimatedImageState extends State<AnimatedImage>
     with SingleTickerProviderStateMixin {
   //
-  late final AnimationController _controller = AnimationController(
-    vsync: this,
+  final AnimationController controller = AnimationController(
     duration: Duration(seconds: 2),
   )..repeat(reverse: false);
 
-  late final Animation<Offset> _animation = Tween<Offset>(
+  final Animation<Offset> _animation = Tween<Offset>(
     begin: Offset(0, -0.08),
     // end: Offset(0, 0.08),
     end: Offset.zero,
-  ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+  ).animate(CurvedAnimation(curve: Curves.easeInOut));
 
   final Widget svg = SvgPicture.asset(
     'assets/images/logowtext.svg',
@@ -29,7 +28,7 @@ class _AnimatedImageState extends State<AnimatedImage>
 
   @override
   void dispose() {
-    _controller.dispose();
+    controller.dispose();
     super.dispose();
   }
 

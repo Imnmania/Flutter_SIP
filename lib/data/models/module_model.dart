@@ -7,9 +7,9 @@ class KothonModule {
   final Function onTap;
 
   KothonModule({
-    required this.id,
-    required this.itemName,
-    required this.iconWidget,
-    required this.onTap,
+    @required this.id,
+    @required this.itemName,
+    @required this.iconWidget,
+    @required this.onTap,
   });
 }

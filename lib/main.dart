@@ -15,8 +15,8 @@ void main() {
 class MyApp extends StatelessWidget {
   final Connectivity connectivity;
   const MyApp({
-    Key? key,
-    required this.connectivity,
+    Key key,
+    @required this.connectivity,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {

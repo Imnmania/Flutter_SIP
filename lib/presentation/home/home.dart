@@ -9,7 +9,7 @@ import 'package:transition/transition.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
-    Key? key,
+    Key key,
   }) : super(key: key);
   @override
   HomeScreenState createState() => HomeScreenState();
@@ -57,8 +57,9 @@ class HomeScreenState extends State<HomeScreen> {
                               Navigator.push(
                                 context,
                                 Transition(
-                                    child: CommunicationHome(),
-                                    transitionEffect: TransitionEffect.FADE),
+                                  child: CommunicationHome(),
+                                  transitionEffect: TransitionEffect.fade,
+                                ).builder(),
                               );
                             }
                             break;

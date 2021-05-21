@@ -12,7 +12,7 @@ class InternetCubit extends Cubit<InternetState> {
   final Connectivity connectivity;
 
   InternetCubit({
-    required this.connectivity,
+    @required this.connectivity,
   }) : super(InternetLoading()) {
     monitorInternetConnection();
   }

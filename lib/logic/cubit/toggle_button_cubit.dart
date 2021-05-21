@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
 
 part 'toggle_button_state.dart';
 
@@ -9,7 +10,7 @@ class ToggleButtonCubit extends Cubit<ToggleButtonState> {
           intValue: 0,
         ));
 
-  void onToggleButtonPress({required bool value, required intValue}) {
+  void onToggleButtonPress({bool value, int intValue}) {
     emit(state.copyWith(toggleValue: value, intValue: intValue + 1));
   }
 }

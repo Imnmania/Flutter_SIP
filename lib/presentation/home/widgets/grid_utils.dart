@@ -26,13 +26,13 @@ import 'package:kothon_app/constants/kothon_colors.dart';
 
 class HorizontalItem extends StatelessWidget {
   const HorizontalItem({
-    required this.title,
-    required this.onClick,
-    Key? key,
+    @required this.title,
+    @required this.onClick,
+    Key key,
   }) : super(key: key);
 
   final String title;
-  final GestureTapCallback? onClick;
+  final GestureTapCallback onClick;
 
   @override
   Widget build(BuildContext context) => GestureDetector(
@@ -112,7 +112,7 @@ Widget Function(
 //           ),
 //         );
 
-Widget? gridIcon(String title) {
+Widget gridIcon(String title) {
   switch (title) {
     case "0":
       return FaIcon(

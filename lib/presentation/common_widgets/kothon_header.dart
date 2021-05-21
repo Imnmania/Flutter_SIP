@@ -14,7 +14,7 @@ import 'package:kothon_app/presentation/common_widgets/show_toast.dart';
 
 class KothonHeader extends StatefulWidget {
   KothonHeader({
-    Key? key,
+    Key key,
   }) : super();
   @override
   KothonHeaderState createState() => KothonHeaderState();
