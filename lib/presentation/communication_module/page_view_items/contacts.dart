@@ -38,7 +38,9 @@ class _ContactsState extends State<Contacts> {
       //
     }, builder: (context, state) {
       if (state is ContactInitial) {
-        return CircularProgressIndicator();
+        return Center(
+          child: CircularProgressIndicator(),
+        );
       } else if (state is ContactLoaded) {
         _contacts = state.contactService;
       }

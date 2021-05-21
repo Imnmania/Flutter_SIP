@@ -1,6 +1,9 @@
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kothon_app/constants/kothon_colors.dart';
 import 'package:kothon_app/logic/cubit/comm_bottom_nav_cubit.dart';
+import 'package:kothon_app/presentation/communication_module/page_view_items/dial_pad.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:kothon_app/logic/cubit/comm_bottom_nav_cubit.dart';
 import 'package:kothon_app/presentation/communication_module/widgets/comm_bottom_nav.dart';
@@ -40,6 +43,7 @@ class _CommunicationHomeState extends State<CommunicationHome> {
             child: PageView(
               controller: pageController,
               pageSnapping: true,
+              physics: NeverScrollableScrollPhysics(),
               onPageChanged: (value) {
                 print(value);
                 context.read<CommBottomNavCubit>().changeId(value);
@@ -52,6 +56,49 @@ class _CommunicationHomeState extends State<CommunicationHome> {
               ],
             ),
           ),
+          Align(
+            // bottom: 10,
+            // right: sWidth * 0.345,
+            alignment: Alignment.bottomCenter,
+
+            child: Container(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  /// Dial Pad ///
+                  FloatingActionButton(
+                    heroTag: 'tag1',
+                    backgroundColor: KothonColors.greenBtn,
+                    elevation: 0,
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DialPadPage()));
+                    },
+                    child: Icon(
+                      CommunityMaterialIcons.dialpad,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+
+                  /// Conference Call ///
+                  FloatingActionButton(
+                    heroTag: 'tag2',
+                    backgroundColor: KothonColors.greenBtn,
+                    elevation: 0,
+                    onPressed: () {},
+                    child: Icon(
+                      CommunityMaterialIcons.account_group,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
       bottomNavigationBar: CommBottomNav(
