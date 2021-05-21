@@ -2,6 +2,8 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:kothon_app/logic/cubit/comm_bottom_nav_cubit.dart';
+import 'package:kothon_app/logic/cubit/contact_cubit.dart';
 
 import 'package:kothon_app/logic/cubit/internet_cubit.dart';
 import 'package:kothon_app/logic/cubit/toggle_button_cubit.dart';
@@ -34,7 +36,14 @@ class MyApp extends StatelessWidget {
           create: (context) => ToggleButtonCubit(),
         ),
         BlocProvider(
-            create: (context) => InternetCubit(connectivity: connectivity)),
+          create: (context) => InternetCubit(connectivity: connectivity),
+        ),
+        BlocProvider(
+          create: (context) => CommBottomNavCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ContactCubit(),
+        ),
       ],
       child: MaterialApp(
         title: 'Kothon',
