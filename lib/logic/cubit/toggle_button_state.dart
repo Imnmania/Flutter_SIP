@@ -17,4 +17,23 @@ class ToggleButtonState {
       intValue: intValue ?? this.intValue,
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'toggleValue': toggleValue,
+      'intValue': intValue,
+    };
+  }
+
+  factory ToggleButtonState.fromMap(Map<String, dynamic> map) {
+    return ToggleButtonState(
+      toggleValue: map['toggleValue'],
+      intValue: map['intValue'],
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory ToggleButtonState.fromJson(String source) =>
+      ToggleButtonState.fromMap(json.decode(source));
 }
