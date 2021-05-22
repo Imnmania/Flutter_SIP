@@ -1,15 +1,21 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:sip_ua/sip_ua.dart';
+
 import 'package:kothon_app/logic/cubit/comm_bottom_nav_cubit.dart';
 import 'package:kothon_app/logic/cubit/contact_cubit.dart';
-
 import 'package:kothon_app/logic/cubit/internet_cubit.dart';
 import 'package:kothon_app/logic/cubit/toggle_button_cubit.dart';
 import 'package:kothon_app/presentation/splash/splash_screen.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:sip_ua/sip_ua.dart';
+import 'package:kothon_app/sip_ua/about.dart';
+import 'package:kothon_app/sip_ua/callscreen.dart';
+import 'package:kothon_app/sip_ua/dialpad.dart';
+import 'package:kothon_app/sip_ua/register.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,6 +23,10 @@ void main() async {
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),
   );
+
+  if (WebRTC.platformIsDesktop) {
+    debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
+  }
 
   runApp(MyApp(
     connectivity: Connectivity(),
@@ -26,12 +36,49 @@ void main() async {
 typedef PageContentBuilder = Widget Function(
     [SIPUAHelper helper, Object arguments]);
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   final Connectivity connectivity;
-  const MyApp({
+  MyApp({
     Key key,
     @required this.connectivity,
   }) : super(key: key);
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final SIPUAHelper _helper = SIPUAHelper();
+
+  Map<String, PageContentBuilder> routes = {
+    '/': ([SIPUAHelper helper, Object arguments]) => SplashScreen(),
+    '/dialpad': ([SIPUAHelper helper, Object arguments]) =>
+        DialPadWidget(helper),
+    '/register': ([SIPUAHelper helper, Object arguments]) =>
+        RegisterWidget(helper),
+    '/callscreen': ([SIPUAHelper helper, Object arguments]) =>
+        CallScreenWidget(helper, arguments as Call),
+    '/about': ([SIPUAHelper helper, Object arguments]) => AboutWidget(),
+  };
+
+  Route<dynamic> _onGenerateRoute(RouteSettings settings) {
+    final String name = settings.name;
+    final PageContentBuilder pageContentBuilder = routes[name];
+    if (pageContentBuilder != null) {
+      if (settings.arguments != null) {
+        final Route route = MaterialPageRoute<Widget>(
+            builder: (context) =>
+                pageContentBuilder(_helper, settings.arguments));
+        return route;
+      } else {
+        final Route route = MaterialPageRoute<Widget>(
+            builder: (context) => pageContentBuilder(_helper));
+        return route;
+      }
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -40,7 +87,7 @@ class MyApp extends StatelessWidget {
           create: (context) => ToggleButtonCubit(),
         ),
         BlocProvider(
-          create: (context) => InternetCubit(connectivity: connectivity),
+          create: (context) => InternetCubit(connectivity: widget.connectivity),
         ),
         BlocProvider(
           create: (context) => CommBottomNavCubit(),
@@ -57,7 +104,8 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Color(0xFFF9FAC7),
           fontFamily: 'Nunito',
         ),
-        home: SplashScreen(),
+        initialRoute: '/',
+        onGenerateRoute: _onGenerateRoute,
       ),
     );
   }

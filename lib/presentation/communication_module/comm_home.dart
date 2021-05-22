@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kothon_app/constants/kothon_colors.dart';
 import 'package:kothon_app/logic/cubit/comm_bottom_nav_cubit.dart';
-import 'package:kothon_app/presentation/communication_module/page_view_items/dial_pad.dart';
+// import 'package:kothon_app/presentation/communication_module/page_view_items/dial_pad.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:kothon_app/logic/cubit/comm_bottom_nav_cubit.dart';
 import 'package:kothon_app/presentation/communication_module/widgets/comm_bottom_nav.dart';
@@ -21,6 +21,7 @@ class CommunicationHome extends StatefulWidget {
 class _CommunicationHomeState extends State<CommunicationHome> {
   //
   final pageController = PageController(initialPage: 1);
+  // final SIPUAHelper _helper = SIPUAHelper();
 
   @override
   Widget build(BuildContext context) {
@@ -72,10 +73,11 @@ class _CommunicationHomeState extends State<CommunicationHome> {
                     backgroundColor: KothonColors.greenBtn,
                     elevation: 0,
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => DialPadPage()));
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => DialPadWidget(_helper)));
+                      Navigator.pushNamed(context, '/dialpad');
                     },
                     child: Icon(
                       CommunityMaterialIcons.dialpad,

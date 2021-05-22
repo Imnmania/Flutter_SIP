@@ -6,9 +6,9 @@ import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kothon_app/constants/kothon_colors.dart';
-import 'package:kothon_app/sip_ua/register.dart';
-import 'package:sip_ua/sip_ua.dart';
-import 'package:transition/transition.dart';
+// import 'package:kothon_app/sip_ua/register.dart';
+// import 'package:sip_ua/sip_ua.dart';
+// import 'package:transition/transition.dart';
 // import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class CommBottomNav extends StatefulWidget {
@@ -84,7 +84,7 @@ class _CommBottomNavState extends State<CommBottomNav> {
     }
   }
 
-  final SIPUAHelper _helper = SIPUAHelper();
+  // final SIPUAHelper _helper = SIPUAHelper();
 
   @override
   void initState() {
@@ -352,8 +352,9 @@ class _CommBottomNavState extends State<CommBottomNav> {
             ),
             onPressed: () {
               print('open');
-              Navigator.push(context,
-                  Transition(child: RegisterWidget(_helper)).builder());
+              // Navigator.push(context,
+              //     Transition(child: RegisterWidget(_helper)).builder());
+              Navigator.pushNamed(context, '/register');
             }),
         FocusedMenuItem(
             backgroundColor: KothonColors.dialPadHeaderColor,

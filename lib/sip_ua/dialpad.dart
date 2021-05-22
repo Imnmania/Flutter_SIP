@@ -272,36 +272,36 @@ class _MyDialPadWidget extends State<DialPadWidget>
                     ]),
           ],
         ),
-        body: Align(
-            alignment: Alignment(0, 0),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(6.0),
-                    child: Center(
-                        child: Text(
-                      'Status: ${EnumHelper.getName(helper.registerState.state)}',
-                      style: TextStyle(fontSize: 14, color: Colors.black54),
-                    )),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(6.0),
-                    child: Center(
-                        child: Text(
-                      // ignore: unnecessary_brace_in_string_interps
-                      'Received Message: ${receivedMsg}',
-                      style: TextStyle(fontSize: 14, color: Colors.black54),
-                    )),
-                  ),
-                  Container(
-                      child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: _buildDialPad(),
+        body: SingleChildScrollView(
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: Center(
+                      child: Text(
+                    'Status: ${EnumHelper.getName(helper.registerState.state)}',
+                    style: TextStyle(fontSize: 14, color: Colors.black54),
                   )),
-                ])));
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: Center(
+                      child: Text(
+                    // ignore: unnecessary_brace_in_string_interps
+                    'Received Message: ${receivedMsg}',
+                    style: TextStyle(fontSize: 14, color: Colors.black54),
+                  )),
+                ),
+                Container(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: _buildDialPad(),
+                )),
+              ]),
+        ));
   }
 
   @override

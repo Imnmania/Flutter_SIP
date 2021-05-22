@@ -284,6 +284,30 @@ class _MyRegisterWidget extends State<RegisterWidget>
                     textColor: Colors.white,
                     onPressed: () => _handleSave(context),
                   ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  height: 40.0,
+                  width: 160.0,
+                  child: MaterialButton(
+                    child: Text(
+                      'Unregister',
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    color: Colors.redAccent,
+                    textColor: Colors.white,
+                    onPressed: () {
+                      helper.stop();
+                    },
+                  ),
                 )
               ]),
         ));
