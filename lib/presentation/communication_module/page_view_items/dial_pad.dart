@@ -2,16 +2,110 @@ import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kothon_app/constants/kothon_colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sip_ua/sip_ua.dart';
 
 class DialPadPage extends StatefulWidget {
+  final SIPUAHelper _helper;
+
+  const DialPadPage(this._helper, {Key key}) : super(key: key);
+
   @override
   _DialPadPageState createState() => _DialPadPageState();
 }
 
-class _DialPadPageState extends State<DialPadPage> {
+class _DialPadPageState extends State<DialPadPage>
+    implements SipUaHelperListener {
+  String _dest;
+  String _serverIP;
+  SIPUAHelper get helper => widget._helper;
+  TextEditingController _textController;
+  SharedPreferences _preferences;
+
+  String receivedMsg;
+
+  void _loadSettings() async {
+    _preferences = await SharedPreferences.getInstance();
+    _serverIP = _preferences.getString('serverIP') ?? 'N/A';
+    _dest = _preferences.getString('dest') ?? 'sip:hello_jssip@tryit.jssip.net';
+    _textController = TextEditingController(text: _dest);
+    _textController.text = _dest;
+
+    this.setState(() {});
+  }
+
+  void _bindEventListeners() {
+    helper.addSipUaHelperListener(this);
+  }
+
+  Widget _handleCall(BuildContext context, [bool voiceonly = false]) {
+    // var dest = _textController.text;
+    var dest = 'sip:$dialNum@$_serverIP';
+
+    if (dest == null || dest.isEmpty) {
+      showDialog<Null>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Target is empty.'),
+            content: Text('Please enter a SIP URI or username!'),
+            actions: <Widget>[
+              // ignore: deprecated_member_use
+              FlatButton(
+                child: Text('Ok'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      return null;
+    }
+    helper.call(dest, voiceonly);
+    _preferences.setString('dest', dest);
+    return null;
+  }
+
+  @override
+  void registrationStateChanged(RegistrationState state) {
+    this.setState(() {});
+  }
+
+  @override
+  void transportStateChanged(TransportState state) {}
+
+  @override
+  void callStateChanged(Call call, CallState callState) {
+    if (callState.state == CallStateEnum.CALL_INITIATION) {
+      Navigator.pushNamed(context, '/callscreen', arguments: call);
+    }
+  }
+
+  @override
+  void onNewMessage(SIPMessageRequest msg) {
+    //Save the incoming message to DB
+    String msgBody = msg.request.body as String;
+    setState(() {
+      receivedMsg = msgBody;
+    });
+  }
+
   //
   String dialNum = '';
   //
+
+  @override
+  initState() {
+    super.initState();
+    // receivedMsg = "";
+    _bindEventListeners();
+    _loadSettings();
+    // getPermissions();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -36,10 +130,13 @@ class _DialPadPageState extends State<DialPadPage> {
                       backgroundColor: KothonColors.greenBtn,
                       heroTag: 'tag3',
                       elevation: 0,
-                      onPressed: () {},
                       child: FaIcon(
                         FontAwesomeIcons.phoneAlt,
                       ),
+                      onPressed: () {
+                        print('sip:$dialNum@$_serverIP');
+                        return _handleCall(context, true);
+                      },
                     ),
                     SizedBox(
                       width: 20,
@@ -48,10 +145,12 @@ class _DialPadPageState extends State<DialPadPage> {
                       backgroundColor: KothonColors.greenBtn,
                       heroTag: 'tag4',
                       elevation: 0,
-                      onPressed: () {},
                       child: FaIcon(
                         FontAwesomeIcons.video,
                       ),
+                      onPressed: () {
+                        return _handleCall(context);
+                      },
                     ),
                   ],
                 ),
@@ -107,6 +206,10 @@ class _DialPadPageState extends State<DialPadPage> {
               ),
             ),
           ),
+          Text(
+            'Status: ${EnumHelper.getName(helper.registerState.state)}',
+          ),
+          Text('Server IP: $_serverIP'),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 54, vertical: 20),
             child: Row(

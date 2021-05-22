@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kothon_app/constants/kothon_colors.dart';
+import 'package:kothon_app/presentation/common_widgets/kothon_header.dart';
 import 'package:sip_ua/sip_ua.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -61,6 +62,8 @@ class _MyRegisterWidget extends State<RegisterWidget>
     _preferences.setString('display_name', _displayNameController.text);
     _preferences.setString('password', _passwordController.text);
     _preferences.setString('auth_user', _authorizationUserController.text);
+    // custom nb
+    _preferences.setString('serverIP', _sipUriController.text.split('@')[1]);
   }
 
   @override
@@ -119,198 +122,201 @@ class _MyRegisterWidget extends State<RegisterWidget>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("SIP Account"),
-        ),
+        // appBar: AppBar(
+        //   title: Text("SIP Account"),
+        // ),
         body: SingleChildScrollView(
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Column(
               children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    Padding(
-                      padding:
-                          const EdgeInsets.fromLTRB(48.0, 18.0, 48.0, 18.0),
-                      child: Center(
-                          child: Text(
-                        'Register Status: ${EnumHelper.getName(_registerState.state)}',
-                        style: TextStyle(fontSize: 18, color: Colors.black54),
-                      )),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(48.0, 18.0, 48.0, 0),
-                      child: Align(
-                        child: Text('WebSocket:'),
-                        alignment: Alignment.centerLeft,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(48.0, 0.0, 48.0, 0),
-                      child: TextFormField(
-                        controller: _wsUriController,
-                        keyboardType: TextInputType.text,
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(10.0),
-                          border: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black12)),
-                        ),
-                      ),
-                    ),
-                  ],
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: KothonHeader(),
                 ),
-                Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(46.0, 18.0, 48.0, 0),
-                      child: Align(
-                        child: Text('SIP URI:'),
-                        alignment: Alignment.centerLeft,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(48.0, 0.0, 48.0, 0),
-                      child: TextFormField(
-                        controller: _sipUriController,
-                        keyboardType: TextInputType.text,
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(10.0),
-                          border: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black12)),
-                        ),
-                      ),
-                    ),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(48.0, 18.0, 48.0, 18.0),
+                  child: Center(
+                      child: Text(
+                    'Register Status: ${EnumHelper.getName(_registerState.state)}',
+                    style: TextStyle(fontSize: 18, color: Colors.black54),
+                  )),
                 ),
-                Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(46.0, 18.0, 48.0, 0),
-                      child: Align(
-                        child: Text('Authorization User:'),
-                        alignment: Alignment.centerLeft,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(48.0, 0.0, 48.0, 0),
-                      child: TextFormField(
-                        controller: _authorizationUserController,
-                        keyboardType: TextInputType.text,
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(10.0),
-                          border: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black12)),
-                          hintText:
-                              _authorizationUserController.text?.isEmpty ?? true
-                                  ? '[Empty]'
-                                  : null,
-                        ),
-                      ),
-                    ),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(48.0, 18.0, 48.0, 0),
+                  child: Align(
+                    child: Text('WebSocket:'),
+                    alignment: Alignment.centerLeft,
+                  ),
                 ),
-                Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(46.0, 18.0, 48.0, 0),
-                      child: Align(
-                        child: Text('Password:'),
-                        alignment: Alignment.centerLeft,
-                      ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(48.0, 0.0, 48.0, 0),
+                  child: TextFormField(
+                    controller: _wsUriController,
+                    keyboardType: TextInputType.text,
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(10.0),
+                      border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black12)),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(48.0, 0.0, 48.0, 0),
-                      child: TextFormField(
-                        controller: _passwordController,
-                        keyboardType: TextInputType.text,
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(10.0),
-                          border: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black12)),
-                          hintText: _passwordController.text?.isEmpty ?? true
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(46.0, 18.0, 48.0, 0),
+                  child: Align(
+                    child: Text('SIP URI:'),
+                    alignment: Alignment.centerLeft,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(48.0, 0.0, 48.0, 0),
+                  child: TextFormField(
+                    controller: _sipUriController,
+                    keyboardType: TextInputType.text,
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(10.0),
+                      border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black12)),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(46.0, 18.0, 48.0, 0),
+                  child: Align(
+                    child: Text('Authorization User:'),
+                    alignment: Alignment.centerLeft,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(48.0, 0.0, 48.0, 0),
+                  child: TextFormField(
+                    controller: _authorizationUserController,
+                    keyboardType: TextInputType.text,
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(10.0),
+                      border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black12)),
+                      hintText:
+                          _authorizationUserController.text?.isEmpty ?? true
                               ? '[Empty]'
                               : null,
-                        ),
-                      ),
                     ),
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(46.0, 18.0, 48.0, 0),
-                      child: Align(
-                        child: Text('Display Name:'),
-                        alignment: Alignment.centerLeft,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(48.0, 0.0, 48.0, 0),
-                      child: TextFormField(
-                        controller: _displayNameController,
-                        keyboardType: TextInputType.text,
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(10.0),
-                          border: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black12)),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  height: 40.0,
-                  width: 160.0,
-                  child: MaterialButton(
-                    child: Text(
-                      'Register',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    color: KothonColors.barIconColor,
-                    textColor: Colors.white,
-                    onPressed: () => _handleSave(context),
                   ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  height: 40.0,
-                  width: 160.0,
-                  child: MaterialButton(
-                    child: Text(
-                      'Unregister',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    color: Colors.redAccent,
-                    textColor: Colors.white,
-                    onPressed: () {
-                      helper.stop();
-                    },
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(46.0, 18.0, 48.0, 0),
+                  child: Align(
+                    child: Text('Password:'),
+                    alignment: Alignment.centerLeft,
                   ),
-                )
-              ]),
-        ));
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(48.0, 0.0, 48.0, 0),
+                  child: TextFormField(
+                    controller: _passwordController,
+                    keyboardType: TextInputType.text,
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(10.0),
+                      border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black12)),
+                      hintText: _passwordController.text?.isEmpty ?? true
+                          ? '[Empty]'
+                          : null,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(46.0, 18.0, 48.0, 0),
+                  child: Align(
+                    child: Text('Display Name:'),
+                    alignment: Alignment.centerLeft,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(48.0, 0.0, 48.0, 0),
+                  child: TextFormField(
+                    controller: _displayNameController,
+                    keyboardType: TextInputType.text,
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(10.0),
+                      border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black12)),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Container(
+              height: 40.0,
+              width: 160.0,
+              child: MaterialButton(
+                child: Text(
+                  'Register',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.white,
+                  ),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                color: KothonColors.barIconColor,
+                textColor: Colors.white,
+                onPressed: () => _handleSave(context),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              height: 40.0,
+              width: 160.0,
+              child: MaterialButton(
+                child: Text(
+                  'Unregister',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.white,
+                  ),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                color: Colors.redAccent,
+                textColor: Colors.white,
+                onPressed: () {
+                  helper.stop();
+                },
+              ),
+            )
+          ]),
+    ));
   }
 
   @override

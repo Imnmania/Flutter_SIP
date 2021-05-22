@@ -25,21 +25,6 @@ class _MyDialPadWidget extends State<DialPadWidget>
   /// PERMISSION HANDLER //////////////////////////////////
   ////////////////////////////////////////////////////////////////
   Future<PermissionStatus> getPermissions() async {
-    // final PermissionStatus permission = await Permission.contacts.status;
-
-    // if (permission != PermissionStatus.granted &&
-    //     permission != PermissionStatus.denied) {
-    //   final Map<Permission, PermissionStatus> permissionStatus = await [
-    //     Permission.contacts,
-    //     Permission.camera,
-    //     Permission.microphone,
-    //   ].request();
-
-    //   return permissionStatus[Permission.contacts] ??
-    //       PermissionStatus.undetermined;
-    // } else {
-    //   return permission;
-    // }
     Map<Permission, PermissionStatus> statuses = await [
       Permission.contacts,
       Permission.camera,

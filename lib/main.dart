@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:kothon_app/presentation/communication_module/page_view_items/dial_pad.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sip_ua/sip_ua.dart';
 
@@ -14,7 +15,7 @@ import 'package:kothon_app/logic/cubit/toggle_button_cubit.dart';
 import 'package:kothon_app/presentation/splash/splash_screen.dart';
 import 'package:kothon_app/sip_ua/about.dart';
 import 'package:kothon_app/sip_ua/callscreen.dart';
-import 'package:kothon_app/sip_ua/dialpad.dart';
+// import 'package:kothon_app/sip_ua/dialpad.dart';
 import 'package:kothon_app/sip_ua/register.dart';
 
 void main() async {
@@ -52,8 +53,9 @@ class _MyAppState extends State<MyApp> {
 
   Map<String, PageContentBuilder> routes = {
     '/': ([SIPUAHelper helper, Object arguments]) => SplashScreen(),
-    '/dialpad': ([SIPUAHelper helper, Object arguments]) =>
-        DialPadWidget(helper),
+    // '/dialpad': ([SIPUAHelper helper, Object arguments]) =>
+    //     DialPadWidget(helper),
+    '/dialpad': ([SIPUAHelper helper, Object arguments]) => DialPadPage(helper),
     '/register': ([SIPUAHelper helper, Object arguments]) =>
         RegisterWidget(helper),
     '/callscreen': ([SIPUAHelper helper, Object arguments]) =>
