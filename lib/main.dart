@@ -9,6 +9,7 @@ import 'package:kothon_app/logic/cubit/internet_cubit.dart';
 import 'package:kothon_app/logic/cubit/toggle_button_cubit.dart';
 import 'package:kothon_app/presentation/splash/splash_screen.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sip_ua/sip_ua.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +22,9 @@ void main() async {
     connectivity: Connectivity(),
   ));
 }
+
+typedef PageContentBuilder = Widget Function(
+    [SIPUAHelper helper, Object arguments]);
 
 class MyApp extends StatelessWidget {
   final Connectivity connectivity;
