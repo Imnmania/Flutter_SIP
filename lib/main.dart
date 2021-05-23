@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:kothon_app/logic/cubit/speed_dial_cubit.dart';
 import 'package:kothon_app/presentation/communication_module/page_view_items/dial_pad.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sip_ua/sip_ua.dart';
@@ -96,6 +97,9 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (context) => ContactCubit(),
+        ),
+        BlocProvider(
+          create: (context) => SpeedDialCubit(),
         ),
       ],
       child: MaterialApp(
