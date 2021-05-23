@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kothon_app/constants/kothon_colors.dart';
+import 'package:kothon_app/data/models/speed_dial_model.dart';
 import 'package:kothon_app/logic/cubit/contact_cubit.dart';
+import 'package:kothon_app/logic/cubit/speed_dial_cubit.dart';
+import 'package:kothon_app/presentation/common_widgets/show_toast.dart';
 
 class Contacts extends StatefulWidget {
   @override
@@ -76,99 +79,137 @@ class _ContactsState extends State<Contacts> {
                   .value),
 
               onTap: () {
-                /// ALERT DIALOG FOR CONTACTS ///
-                return showDialog(
-                  // barrierDismissible: false,
-                  barrierColor: Colors.black.withOpacity(0.7),
+                showTheBottomSheet(
                   context: context,
-                  builder: (context) {
-                    return BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                      child: Dialog(
-                        elevation: 10,
-                        backgroundColor:
-                            KothonColors.navBarColor.withOpacity(0),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25.0)),
-                        insetAnimationCurve: Curves.easeInOutCirc,
-                        insetAnimationDuration: Duration(seconds: 3),
-                        child: Container(
-                          padding: EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            color: KothonColors.dialPadHeaderColor,
-                            borderRadius: BorderRadius.circular(3),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                contact.displayName ?? 'No Name',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25,
-                                  color: KothonColors.offWhite,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                contact.phones
-                                    .firstWhere((element) => element != null)
-                                    .value,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white60,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  FloatingActionButton(
-                                    backgroundColor: KothonColors.greenBtn,
-                                    elevation: 0,
-                                    child: FaIcon(FontAwesomeIcons.phoneAlt),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  FloatingActionButton(
-                                    elevation: 0,
-                                    backgroundColor: KothonColors.greenBtn,
-                                    child: FaIcon(FontAwesomeIcons.video),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  FloatingActionButton(
-                                    elevation: 0,
-                                    backgroundColor: KothonColors.greenBtn,
-                                    child:
-                                        FaIcon(FontAwesomeIcons.solidComments),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
+                  contactName: contact.displayName,
+                  contactNumber: contact.phones
+                      .firstWhere((element) => element != null)
+                      .value,
                 );
+
+                /// ALERT DIALOG FOR CONTACTS ///
+                // return showDialog(
+                //   // barrierDismissible: false,
+                //   barrierColor: Colors.black.withOpacity(0.7),
+                //   context: context,
+                //   builder: (context) {
+                //     return BackdropFilter(
+                //       filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                //       child: Dialog(
+                //         elevation: 10,
+                //         backgroundColor:
+                //             KothonColors.navBarColor.withOpacity(0),
+                //         shape: RoundedRectangleBorder(
+                //             borderRadius: BorderRadius.circular(25.0)),
+                //         insetAnimationCurve: Curves.easeInOutCirc,
+                //         insetAnimationDuration: Duration(seconds: 3),
+                //         child: Container(
+                //           padding: EdgeInsets.all(20),
+                //           decoration: BoxDecoration(
+                //             color: KothonColors.dialPadHeaderColor,
+                //             borderRadius: BorderRadius.circular(3),
+                //           ),
+                //           child: Column(
+                //             mainAxisSize: MainAxisSize.min,
+                //             children: [
+                //               Text(
+                //                 contact.displayName ?? 'No Name',
+                //                 style: TextStyle(
+                //                   fontWeight: FontWeight.bold,
+                //                   fontSize: 25,
+                //                   color: KothonColors.offWhite,
+                //                 ),
+                //               ),
+                //               SizedBox(
+                //                 height: 10,
+                //               ),
+                //               Text(
+                //                 contact.phones
+                //                     .firstWhere((element) => element != null)
+                //                     .value,
+                //                 style: TextStyle(
+                //                   fontSize: 20,
+                //                   color: Colors.white60,
+                //                 ),
+                //               ),
+                //               SizedBox(
+                //                 height: 20,
+                //               ),
+                //               Row(
+                //                 mainAxisSize: MainAxisSize.min,
+                //                 mainAxisAlignment:
+                //                     MainAxisAlignment.spaceEvenly,
+                //                 children: [
+                //                   FloatingActionButton(
+                //                     backgroundColor: KothonColors.greenBtn,
+                //                     elevation: 0,
+                //                     child: FaIcon(FontAwesomeIcons.phoneAlt),
+                //                     onPressed: () {
+                //                       Navigator.pop(context);
+                //                     },
+                //                   ),
+                //                   SizedBox(
+                //                     width: 20,
+                //                   ),
+                //                   FloatingActionButton(
+                //                     elevation: 0,
+                //                     backgroundColor: KothonColors.greenBtn,
+                //                     child: FaIcon(FontAwesomeIcons.video),
+                //                     onPressed: () {
+                //                       Navigator.pop(context);
+                //                     },
+                //                   ),
+                //                   SizedBox(
+                //                     width: 20,
+                //                   ),
+                //                   FloatingActionButton(
+                //                     elevation: 0,
+                //                     backgroundColor: KothonColors.greenBtn,
+                //                     child:
+                //                         FaIcon(FontAwesomeIcons.solidComments),
+                //                     onPressed: () {
+                //                       context
+                //                           .read<SpeedDialCubit>()
+                //                           .addSpeedDial(SpeedDialModel(
+                //                             name: contact.displayName,
+                //                             contact: contact.phones
+                //                                 .firstWhere((element) =>
+                //                                     element != null)
+                //                                 .value,
+                //                           ));
+                //                       Navigator.pop(context);
+                //                     },
+                //                   ),
+                //                   SizedBox(
+                //                     width: 20,
+                //                   ),
+                //                   FloatingActionButton(
+                //                     elevation: 0,
+                //                     backgroundColor: KothonColors.greenBtn,
+                //                     child:
+                //                         FaIcon(FontAwesomeIcons.solidComments),
+                //                     onPressed: () {
+                //                       context
+                //                           .read<SpeedDialCubit>()
+                //                           .addSpeedDial(SpeedDialModel(
+                //                             name: contact.displayName,
+                //                             contact: contact.phones
+                //                                 .firstWhere((element) =>
+                //                                     element != null)
+                //                                 .value,
+                //                           ));
+                //                       Navigator.pop(context);
+                //                     },
+                //                   ),
+                //                 ],
+                //               ),
+                //             ],
+                //           ),
+                //         ),
+                //       ),
+                //     );
+                //   },
+                // );
               },
               // contentPadding: EdgeInsets.all(10),
             );
@@ -176,5 +217,124 @@ class _ContactsState extends State<Contacts> {
         ),
       );
     });
+  }
+
+  showTheBottomSheet({
+    BuildContext context,
+    String contactName,
+    String contactNumber,
+  }) {
+    return showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(25),
+          topRight: Radius.circular(25),
+        ),
+      ),
+      barrierColor: Colors.black.withOpacity(0.5),
+      context: context,
+      builder: (context) {
+        return Container(
+          decoration: BoxDecoration(
+            color: KothonColors.barBodyColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(25),
+              topRight: Radius.circular(25),
+            ),
+          ),
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              SizedBox(
+                height: 30,
+              ),
+              Column(
+                children: [
+                  Text(
+                    contactName,
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(contactNumber),
+                ],
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    children: [
+                      FloatingActionButton(
+                        backgroundColor: KothonColors.greenBtn,
+                        elevation: 0,
+                        child: FaIcon(FontAwesomeIcons.phoneAlt),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      Text('Audio Call'),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      FloatingActionButton(
+                        backgroundColor: KothonColors.greenBtn,
+                        elevation: 0,
+                        child: FaIcon(FontAwesomeIcons.video),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      Text('Video Call'),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      FloatingActionButton(
+                        backgroundColor: KothonColors.greenBtn,
+                        elevation: 0,
+                        child: FaIcon(FontAwesomeIcons.solidComments),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      Text('Message'),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      FloatingActionButton(
+                        backgroundColor: KothonColors.greenBtn,
+                        elevation: 0,
+                        child: FaIcon(FontAwesomeIcons.plus),
+                        onPressed: () {
+                          context
+                              .read<SpeedDialCubit>()
+                              .addSpeedDial(SpeedDialModel(
+                                name: contactName,
+                                contact: contactNumber,
+                              ));
+                          Navigator.pop(context);
+                          futureToast(
+                              context: context, message: "Added to speed dial");
+                        },
+                      ),
+                      Text('Speed Dial'),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 30,
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
