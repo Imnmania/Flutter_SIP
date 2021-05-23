@@ -47,6 +47,12 @@ class _MyDialPadWidget extends State<DialPadWidget>
     getPermissions();
   }
 
+  @override
+  void deactivate() {
+    helper.removeSipUaHelperListener(this);
+    super.deactivate();
+  }
+
   void _loadSettings() async {
     _preferences = await SharedPreferences.getInstance();
     _dest = _preferences.getString('dest') ?? 'sip:hello_jssip@tryit.jssip.net';

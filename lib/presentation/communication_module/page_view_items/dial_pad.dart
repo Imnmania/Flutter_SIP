@@ -34,10 +34,6 @@ class _DialPadPageState extends State<DialPadPage>
     this.setState(() {});
   }
 
-  void _bindEventListeners() {
-    helper.addSipUaHelperListener(this);
-  }
-
   Widget _handleCall(BuildContext context, [bool voiceonly = false]) {
     // var dest = _textController.text;
     var dest = 'sip:$dialNum@$_serverIP';
@@ -69,33 +65,13 @@ class _DialPadPageState extends State<DialPadPage>
     return null;
   }
 
-  @override
-  void registrationStateChanged(RegistrationState state) {
-    this.setState(() {});
-  }
-
-  @override
-  void transportStateChanged(TransportState state) {}
-
-  @override
-  void callStateChanged(Call call, CallState callState) {
-    if (callState.state == CallStateEnum.CALL_INITIATION) {
-      Navigator.pushNamed(context, '/callscreen', arguments: call);
-    }
-  }
-
-  @override
-  void onNewMessage(SIPMessageRequest msg) {
-    //Save the incoming message to DB
-    String msgBody = msg.request.body as String;
-    setState(() {
-      receivedMsg = msgBody;
-    });
-  }
-
   //
   String dialNum = '';
   //
+
+  void _bindEventListeners() {
+    helper.addSipUaHelperListener(this);
+  }
 
   @override
   initState() {
@@ -104,6 +80,12 @@ class _DialPadPageState extends State<DialPadPage>
     _bindEventListeners();
     _loadSettings();
     // getPermissions();
+  }
+
+  @override
+  void deactivate() {
+    helper.removeSipUaHelperListener(this);
+    super.deactivate();
   }
 
   @override
@@ -684,5 +666,29 @@ class _DialPadPageState extends State<DialPadPage>
         ],
       ),
     );
+  }
+
+  @override
+  void registrationStateChanged(RegistrationState state) {
+    this.setState(() {});
+  }
+
+  @override
+  void transportStateChanged(TransportState state) {}
+
+  @override
+  void callStateChanged(Call call, CallState callState) {
+    if (callState.state == CallStateEnum.CALL_INITIATION) {
+      Navigator.pushNamed(context, '/callscreen', arguments: call);
+    }
+  }
+
+  @override
+  void onNewMessage(SIPMessageRequest msg) {
+    //Save the incoming message to DB
+    String msgBody = msg.request.body as String;
+    setState(() {
+      receivedMsg = msgBody;
+    });
   }
 }
