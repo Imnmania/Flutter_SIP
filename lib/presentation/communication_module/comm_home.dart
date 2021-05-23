@@ -97,7 +97,7 @@ class _CommunicationHomeState extends State<CommunicationHome>
               },
               children: [
                 SpeedDial(helper),
-                History(),
+                History(helper),
                 Contacts(helper),
                 Messages(),
               ],
