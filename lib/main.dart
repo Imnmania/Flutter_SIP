@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:kothon_app/constants/custom_page_route.dart';
 import 'package:kothon_app/logic/cubit/history_cubit.dart';
 import 'package:kothon_app/logic/cubit/speed_dial_cubit.dart';
 import 'package:kothon_app/presentation/communication_module/comm_home.dart';
@@ -20,6 +21,7 @@ import 'package:kothon_app/sip_ua/about.dart';
 import 'package:kothon_app/sip_ua/callscreen.dart';
 // import 'package:kothon_app/sip_ua/dialpad.dart';
 import 'package:kothon_app/sip_ua/register.dart';
+// import 'package:transition/transition.dart' as tos;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -78,8 +80,10 @@ class _MyAppState extends State<MyApp> {
                 pageContentBuilder(_helper, settings.arguments));
         return route;
       } else {
-        final Route route = MaterialPageRoute<Widget>(
-            builder: (context) => pageContentBuilder(_helper));
+        // final Route route = MaterialPageRoute<Widget>(
+        //     builder: (context) => pageContentBuilder(_helper));
+        final Route route =
+            CustomPageRoute(widget: pageContentBuilder(_helper));
         return route;
       }
     }
