@@ -1,10 +1,13 @@
 import 'dart:ui';
 
+import 'package:date_time_format/date_time_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kothon_app/constants/kothon_colors.dart';
+import 'package:kothon_app/data/models/history_model.dart';
 import 'package:kothon_app/data/models/speed_dial_model.dart';
+import 'package:kothon_app/logic/cubit/history_cubit.dart';
 import 'package:kothon_app/logic/cubit/speed_dial_cubit.dart';
 import 'package:kothon_app/presentation/common_widgets/show_toast.dart';
 import 'package:kothon_app/presentation/communication_module/widgets/speed_dial_popup.dart';
@@ -287,6 +290,12 @@ class _SpeedDialState extends State<SpeedDial> implements SipUaHelperListener {
                           setState(() {
                             dialNum = contactNumber;
                           });
+                          context.read<HistoryCubit>().addHistory(HistoryModel(
+                              contactName,
+                              dialNum,
+                              DateTimeFormat.format(DateTime.now(),
+                                  format: 'M j, Y, h:i a')));
+
                           Navigator.pop(context);
                           return _handleCall(context, true);
                         },
@@ -304,6 +313,13 @@ class _SpeedDialState extends State<SpeedDial> implements SipUaHelperListener {
                           setState(() {
                             dialNum = contactNumber;
                           });
+
+                          context.read<HistoryCubit>().addHistory(HistoryModel(
+                              contactName,
+                              dialNum,
+                              DateTimeFormat.format(DateTime.now(),
+                                  format: 'M j, Y, h:i a')));
+
                           Navigator.pop(context);
                           return _handleCall(context);
                         },

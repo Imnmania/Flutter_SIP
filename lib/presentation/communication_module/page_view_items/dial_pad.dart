@@ -1,7 +1,11 @@
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:date_time_format/date_time_format.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kothon_app/constants/kothon_colors.dart';
+import 'package:kothon_app/data/models/history_model.dart';
+import 'package:kothon_app/logic/cubit/history_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sip_ua/sip_ua.dart';
 
@@ -117,6 +121,12 @@ class _DialPadPageState extends State<DialPadPage>
                       ),
                       onPressed: () {
                         print('sip:$dialNum@$_serverIP');
+                        context.read<HistoryCubit>().addHistory(HistoryModel(
+                            'N/A',
+                            dialNum,
+                            DateTimeFormat.format(DateTime.now(),
+                                format: 'M j, Y, h:i a')));
+
                         return _handleCall(context, true);
                       },
                     ),
@@ -131,6 +141,12 @@ class _DialPadPageState extends State<DialPadPage>
                         FontAwesomeIcons.video,
                       ),
                       onPressed: () {
+                        context.read<HistoryCubit>().addHistory(HistoryModel(
+                            'N/A',
+                            dialNum,
+                            DateTimeFormat.format(DateTime.now(),
+                                format: 'M j, Y, h:i a')));
+
                         return _handleCall(context);
                       },
                     ),

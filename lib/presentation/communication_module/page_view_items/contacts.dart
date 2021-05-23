@@ -1,12 +1,15 @@
 import 'dart:ui';
 
 import 'package:contacts_service/contacts_service.dart';
+import 'package:date_time_format/date_time_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kothon_app/constants/kothon_colors.dart';
+import 'package:kothon_app/data/models/history_model.dart';
 import 'package:kothon_app/data/models/speed_dial_model.dart';
 import 'package:kothon_app/logic/cubit/contact_cubit.dart';
+import 'package:kothon_app/logic/cubit/history_cubit.dart';
 import 'package:kothon_app/logic/cubit/speed_dial_cubit.dart';
 import 'package:kothon_app/presentation/common_widgets/show_toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -347,6 +350,13 @@ class _ContactsState extends State<Contacts> implements SipUaHelperListener {
                           setState(() {
                             dialNum = contactNumber;
                           });
+
+                          context.read<HistoryCubit>().addHistory(HistoryModel(
+                              contactName,
+                              dialNum,
+                              DateTimeFormat.format(DateTime.now(),
+                                  format: 'M j, Y, h:i a')));
+
                           Navigator.pop(context);
                           return _handleCall(context, true);
                         },
@@ -364,6 +374,13 @@ class _ContactsState extends State<Contacts> implements SipUaHelperListener {
                           setState(() {
                             dialNum = contactNumber;
                           });
+
+                          context.read<HistoryCubit>().addHistory(HistoryModel(
+                              contactName,
+                              dialNum,
+                              DateTimeFormat.format(DateTime.now(),
+                                  format: 'M j, Y, h:i a')));
+
                           Navigator.pop(context);
                           return _handleCall(context);
                         },
