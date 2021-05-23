@@ -50,16 +50,17 @@ class _SpeedDialState extends State<SpeedDial> {
           Positioned(
             top: 0,
             child: Container(
-              padding: EdgeInsets.all(10),
+              // padding: EdgeInsets.all(10),
               width: sWidth,
               child: Column(
                 children: [
                   Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
                       color: KothonColors.homeTopSectionBackground,
                       border: Border.all(
                         color: KothonColors.barIconColor,
-                        width: 2,
+                        width: 1,
                         style: BorderStyle.solid,
                       ),
                       borderRadius: BorderRadius.circular(10),
@@ -74,7 +75,7 @@ class _SpeedDialState extends State<SpeedDial> {
                         //     onPressed: null,
                         //   ),
                         // ),
-                        Padding(
+                        Container(
                           padding: const EdgeInsets.only(left: 10.0),
                           child: Text(
                             'Speed Dials',
@@ -114,11 +115,14 @@ class _SpeedDialState extends State<SpeedDial> {
                       context: context,
                       removeTop: true,
                       child: ListView.separated(
-                        separatorBuilder: (context, index) {
-                          return Divider(
-                            height: 5,
-                          );
-                        },
+                        // separatorBuilder: (context, index) {
+                        // return Divider(
+                        // height: 5,
+                        // );
+                        // },
+                        separatorBuilder: (context, index) => Divider(
+                          color: Colors.black,
+                        ),
                         shrinkWrap: true,
                         itemCount: speedDialList.length,
                         itemBuilder: (context, index) {
