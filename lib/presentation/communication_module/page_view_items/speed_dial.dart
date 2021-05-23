@@ -53,52 +53,62 @@ class _SpeedDialState extends State<SpeedDial> {
               width: sWidth,
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Opacity(
-                      //   opacity: 0,
-                      //   child: IconButton(
-                      //     icon: FaIcon(FontAwesomeIcons.plus),
-                      //     onPressed: null,
-                      //   ),
-                      // ),
-                      Text(
-                        'Speed Dials',
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: KothonColors.homeTopSectionBackground,
+                      border: Border.all(
+                        color: KothonColors.barIconColor,
+                        width: 2,
+                        style: BorderStyle.solid,
                       ),
-                      IconButton(
-                          icon: FaIcon(
-                            FontAwesomeIcons.plus,
-                            size: 18,
-                            color: KothonColors.barIconColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Opacity(
+                        //   opacity: 0,
+                        //   child: IconButton(
+                        //     icon: FaIcon(FontAwesomeIcons.plus),
+                        //     onPressed: null,
+                        //   ),
+                        // ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: Text(
+                            'Speed Dials',
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
                           ),
-                          onPressed: () async {
-                            await speedDialAddDialog(
-                              context: context,
-                              nameController: _nameController,
-                              contactController: _contactController,
-                            );
-                            print(_nameController.text);
-                            print(_contactController.text);
-
-                            context
-                                .read<SpeedDialCubit>()
-                                .addSpeedDial(SpeedDialModel(
-                                  name: _nameController.text,
-                                  contact: _contactController.text,
-                                ));
-                          }),
-                    ],
+                        ),
+                        IconButton(
+                            icon: FaIcon(
+                              FontAwesomeIcons.plus,
+                              size: 18,
+                              color: KothonColors.barIconColor,
+                            ),
+                            onPressed: () async {
+                              await speedDialAddDialog(
+                                context: context,
+                                nameController: _nameController,
+                                contactController: _contactController,
+                              );
+                              print(_nameController.text);
+                              print(_contactController.text);
+                            }),
+                      ],
+                    ),
                   ),
-                  Divider(
-                    height: 5,
-                    color: Colors.black,
-                  ),
+                  // Divider(
+                  //   height: 5,
+                  //   color: Colors.black,
+                  // ),
                   Container(
                     height: sHeight * 0.75,
+                    padding: EdgeInsets.only(
+                      bottom: 10,
+                    ),
                     child: MediaQuery.removePadding(
                       context: context,
                       removeTop: true,
@@ -112,6 +122,10 @@ class _SpeedDialState extends State<SpeedDial> {
                         itemCount: speedDialList.length,
                         itemBuilder: (context, index) {
                           return ListTile(
+                            // leading: CircleAvatar(
+                            //   child: Text(speedDialList[index].name[0]),
+                            //   backgroundColor: Theme.of(context).accentColor,
+                            // ),
                             title: Text(speedDialList[index].name),
                             subtitle: Text(speedDialList[index].contact),
                             onTap: () {

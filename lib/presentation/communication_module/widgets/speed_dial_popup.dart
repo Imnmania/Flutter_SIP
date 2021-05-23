@@ -1,7 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kothon_app/constants/kothon_colors.dart';
+import 'package:kothon_app/data/models/speed_dial_model.dart';
+import 'package:kothon_app/logic/cubit/speed_dial_cubit.dart';
 
 Future speedDialAddDialog({
   BuildContext context,
@@ -27,7 +30,7 @@ Future speedDialAddDialog({
               padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
                 color: KothonColors.dialPadHeaderColor,
-                borderRadius: BorderRadius.circular(3),
+                borderRadius: BorderRadius.circular(5),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -48,7 +51,7 @@ Future speedDialAddDialog({
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(5),
                     ),
                     child: TextFormField(
                       controller: nameController,
@@ -71,7 +74,7 @@ Future speedDialAddDialog({
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(5),
                     ),
                     child: TextFormField(
                       controller: contactController,
@@ -87,6 +90,9 @@ Future speedDialAddDialog({
                     height: 20,
                   ),
                   MaterialButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
                       child: Text(
                         'Add +',
                         style: TextStyle(
@@ -99,6 +105,20 @@ Future speedDialAddDialog({
                       onPressed: () {
                         Navigator.pop(context,
                             [nameController.text, contactController.text]);
+
+                        if (nameController.text != null &&
+                            nameController.text != '' &&
+                            contactController.text != null &&
+                            contactController.text != '') {
+                          context
+                              .read<SpeedDialCubit>()
+                              .addSpeedDial(SpeedDialModel(
+                                name: nameController.text,
+                                contact: contactController.text,
+                              ));
+                        } else {
+                          return;
+                        }
                       }),
                   SizedBox(
                     height: 20,
