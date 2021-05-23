@@ -347,7 +347,7 @@ class _ContactsState extends State<Contacts> implements SipUaHelperListener {
                           setState(() {
                             dialNum = contactNumber;
                           });
-                          // Navigator.pop(context);
+                          Navigator.pop(context);
                           return _handleCall(context, true);
                         },
                       ),
@@ -361,7 +361,11 @@ class _ContactsState extends State<Contacts> implements SipUaHelperListener {
                         elevation: 0,
                         child: FaIcon(FontAwesomeIcons.video),
                         onPressed: () {
+                          setState(() {
+                            dialNum = contactNumber;
+                          });
                           Navigator.pop(context);
+                          return _handleCall(context);
                         },
                       ),
                       Text('Video Call'),

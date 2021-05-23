@@ -96,7 +96,7 @@ class _CommunicationHomeState extends State<CommunicationHome>
                 context.read<CommBottomNavCubit>().changeId(value);
               },
               children: [
-                SpeedDial(),
+                SpeedDial(helper),
                 History(),
                 Contacts(helper),
                 Messages(),
