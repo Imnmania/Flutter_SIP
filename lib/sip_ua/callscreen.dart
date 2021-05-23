@@ -534,17 +534,28 @@ class _MyCallScreenWidget extends State<CallScreenWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
+    return WillPopScope(
+      onWillPop: () {
+        return;
+      },
+      child: Scaffold(
+          appBar: AppBar(
             automaticallyImplyLeading: false,
-            title: Text('[$direction] ${EnumHelper.getName(_state)}')),
-        body: Container(
-          child: _buildContent(),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: Padding(
-            padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 24.0),
-            child: Container(width: 320, child: _buildActionButtons())));
+            // title: Text('[$direction] ${EnumHelper.getName(_state)}')),
+            title: Text('$direction'),
+            centerTitle: true,
+            leading: null,
+            elevation: 0,
+          ),
+          body: Container(
+            child: _buildContent(),
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
+          floatingActionButton: Padding(
+              padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 24.0),
+              child: Container(width: 320, child: _buildActionButtons()))),
+    );
   }
 
   @override
