@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kothon_app/constants/kothon_colors.dart';
 import 'package:kothon_app/data/models/speed_dial_model.dart';
 import 'package:kothon_app/logic/cubit/speed_dial_cubit.dart';
+import 'package:kothon_app/presentation/common_widgets/show_toast.dart';
 import 'package:kothon_app/presentation/communication_module/widgets/speed_dial_popup.dart';
 
 class SpeedDial extends StatefulWidget {
@@ -122,16 +123,22 @@ class _SpeedDialState extends State<SpeedDial> {
                         itemCount: speedDialList.length,
                         itemBuilder: (context, index) {
                           return ListTile(
-                            // leading: CircleAvatar(
-                            //   child: Text(speedDialList[index].name[0]),
-                            //   backgroundColor: Theme.of(context).accentColor,
-                            // ),
+                            leading: CircleAvatar(
+                              child: Text(speedDialList[index].name[0]),
+                              backgroundColor: Theme.of(context).accentColor,
+                            ),
                             title: Text(speedDialList[index].name),
                             subtitle: Text(speedDialList[index].contact),
                             onTap: () {
-                              context
-                                  .read<SpeedDialCubit>()
-                                  .delSpeedDial(index);
+                              // context
+                              //     .read<SpeedDialCubit>()
+                              //     .delSpeedDial(index);
+                              showTheBottomSheet(
+                                context: context,
+                                contactName: speedDialList[index].name,
+                                contactNumber: speedDialList[index].contact,
+                                index: index,
+                              );
                             },
                           );
                         },
@@ -144,6 +151,122 @@ class _SpeedDialState extends State<SpeedDial> {
           ),
         ],
       ),
+    );
+  }
+
+  showTheBottomSheet({
+    BuildContext context,
+    String contactName,
+    String contactNumber,
+    int index,
+  }) {
+    return showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(25),
+          topRight: Radius.circular(25),
+        ),
+      ),
+      barrierColor: Colors.black.withOpacity(0.5),
+      context: context,
+      builder: (context) {
+        return Container(
+          decoration: BoxDecoration(
+            color: KothonColors.barBodyColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(25),
+              topRight: Radius.circular(25),
+            ),
+          ),
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              SizedBox(
+                height: 30,
+              ),
+              Column(
+                children: [
+                  Text(
+                    contactName,
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(contactNumber),
+                ],
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    children: [
+                      FloatingActionButton(
+                        backgroundColor: KothonColors.greenBtn,
+                        elevation: 0,
+                        child: FaIcon(FontAwesomeIcons.phoneAlt),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      Text('Audio Call'),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      FloatingActionButton(
+                        backgroundColor: KothonColors.greenBtn,
+                        elevation: 0,
+                        child: FaIcon(FontAwesomeIcons.video),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      Text('Video Call'),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      FloatingActionButton(
+                        backgroundColor: KothonColors.greenBtn,
+                        elevation: 0,
+                        child: FaIcon(FontAwesomeIcons.solidComments),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      Text('Message'),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      FloatingActionButton(
+                        backgroundColor: Colors.redAccent,
+                        elevation: 0,
+                        child: FaIcon(FontAwesomeIcons.trash),
+                        onPressed: () {
+                          context.read<SpeedDialCubit>().delSpeedDial(index);
+                          Navigator.pop(context);
+                          futureToast(
+                              context: context,
+                              message: "Removed from speed dial");
+                        },
+                      ),
+                      Text('Remove'),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 30,
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
