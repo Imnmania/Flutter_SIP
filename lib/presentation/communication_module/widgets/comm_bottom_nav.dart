@@ -107,14 +107,12 @@ class _CommBottomNavState extends State<CommBottomNav> {
               children: [
                 Opacity(
                   opacity: 0,
-                  child: Container(
-                    // margin: const EdgeInsets.all(10),
-                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                    child: FaIcon(
+                  child: IconButton(
+                    icon: FaIcon(
                       FontAwesomeIcons.ellipsisV,
                       size: 20,
-                      color: KothonColors.barIconColor,
                     ),
+                    onPressed: null,
                   ),
                 ),
                 Container(
@@ -320,15 +318,23 @@ class _CommBottomNavState extends State<CommBottomNav> {
       // menuOffset: 10.0, // Offset value to show menuItem from the selected item
       bottomOffsetHeight:
           90.0, // Offset height to consider, for showing the menu item ( for example bottom navigation bar), so that the popup menu will be shown on top of selected item.
-      child: Container(
-        // padding: const EdgeInsets.only(right: 10),
-        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-        child: FaIcon(
+      // child: Container(
+      //   // padding: const EdgeInsets.only(right: 10),
+      //   margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      //   child: FaIcon(
+      //     FontAwesomeIcons.ellipsisV,
+      //     size: 20,
+      //     // color: KothonColors.barIconColor,
+      //     color: _isSelected ? flashyColor : normColor,
+      //   ),
+      // ),
+      child: IconButton(
+        icon: FaIcon(
           FontAwesomeIcons.ellipsisV,
           size: 20,
-          // color: KothonColors.barIconColor,
           color: _isSelected ? flashyColor : normColor,
         ),
+        onPressed: null,
       ),
 
       onPressed: () {
