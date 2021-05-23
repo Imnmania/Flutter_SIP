@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kothon_app/constants/kothon_colors.dart';
 import 'package:kothon_app/presentation/common_widgets/kothon_header.dart';
 import 'package:kothon_app/presentation/common_widgets/show_toast.dart';
-import 'package:kothon_app/presentation/communication_module/comm_home.dart';
 import 'package:kothon_app/presentation/home/widgets/grid_utils.dart';
-import 'package:transition/transition.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -54,13 +52,14 @@ class HomeScreenState extends State<HomeScreen> {
                           case 0:
                             {
                               print("aye 0");
-                              Navigator.push(
-                                context,
-                                Transition(
-                                  child: CommunicationHome(),
-                                  transitionEffect: TransitionEffect.fade,
-                                ).builder(),
-                              );
+                              // Navigator.push(
+                              //   context,
+                              //   Transition(
+                              //     child: CommunicationHome(),
+                              //     transitionEffect: TransitionEffect.fade,
+                              //   ).builder(),
+                              // );
+                              Navigator.pushNamed(context, '/commHome');
                             }
                             break;
                           case 1:

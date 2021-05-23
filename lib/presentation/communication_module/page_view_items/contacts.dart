@@ -9,13 +9,19 @@ import 'package:kothon_app/data/models/speed_dial_model.dart';
 import 'package:kothon_app/logic/cubit/contact_cubit.dart';
 import 'package:kothon_app/logic/cubit/speed_dial_cubit.dart';
 import 'package:kothon_app/presentation/common_widgets/show_toast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sip_ua/sip_ua.dart';
 
 class Contacts extends StatefulWidget {
+  final SIPUAHelper _helper;
+
+  const Contacts(this._helper, {Key key}) : super(key: key);
+
   @override
   _ContactsState createState() => _ContactsState();
 }
 
-class _ContactsState extends State<Contacts> {
+class _ContactsState extends State<Contacts> implements SipUaHelperListener {
   Iterable<Contact> _contacts;
   var temp;
 
@@ -29,10 +35,75 @@ class _ContactsState extends State<Contacts> {
     context.read<ContactCubit>().contactLoad(contacts);
   }
 
+  String _dest;
+  String _serverIP;
+  SIPUAHelper get helper => widget._helper;
+  TextEditingController _textController;
+  SharedPreferences _preferences;
+
+  String receivedMsg;
+
+  void _loadSettings() async {
+    _preferences = await SharedPreferences.getInstance();
+    _serverIP = _preferences.getString('serverIP') ?? 'N/A';
+    _dest = _preferences.getString('dest') ?? 'sip:hello_jssip@tryit.jssip.net';
+    _textController = TextEditingController(text: _dest);
+    _textController.text = _dest;
+
+    this.setState(() {});
+  }
+
+  Widget _handleCall(BuildContext context, [bool voiceonly = false]) {
+    // var dest = _textController.text;
+    var dest = 'sip:$dialNum@$_serverIP';
+
+    if (dest == null || dest.isEmpty) {
+      showDialog<Null>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Target is empty.'),
+            content: Text('Please enter a SIP URI or username!'),
+            actions: <Widget>[
+              // ignore: deprecated_member_use
+              FlatButton(
+                child: Text('Ok'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      return null;
+    }
+    helper.call(dest, voiceonly);
+    _preferences.setString('dest', dest);
+    return null;
+  }
+
+  //
+  String dialNum = '';
+  //
+
+  void _bindEventListeners() {
+    helper.addSipUaHelperListener(this);
+  }
+
   @override
   void initState() {
     super.initState();
+    _bindEventListeners();
+    _loadSettings();
     getContacts();
+  }
+
+  @override
+  void deactivate() {
+    helper.removeSipUaHelperListener(this);
+    super.deactivate();
   }
 
   @override
@@ -273,7 +344,11 @@ class _ContactsState extends State<Contacts> {
                         elevation: 0,
                         child: FaIcon(FontAwesomeIcons.phoneAlt),
                         onPressed: () {
-                          Navigator.pop(context);
+                          setState(() {
+                            dialNum = contactNumber;
+                          });
+                          // Navigator.pop(context);
+                          return _handleCall(context, true);
                         },
                       ),
                       Text('Audio Call'),
@@ -336,5 +411,29 @@ class _ContactsState extends State<Contacts> {
         );
       },
     );
+  }
+
+  @override
+  void registrationStateChanged(RegistrationState state) {
+    this.setState(() {});
+  }
+
+  @override
+  void transportStateChanged(TransportState state) {}
+
+  @override
+  void callStateChanged(Call call, CallState callState) {
+    if (callState.state == CallStateEnum.CALL_INITIATION) {
+      Navigator.pushNamed(context, '/callscreen', arguments: call);
+    }
+  }
+
+  @override
+  void onNewMessage(SIPMessageRequest msg) {
+    //Save the incoming message to DB
+    String msgBody = msg.request.body as String;
+    setState(() {
+      receivedMsg = msgBody;
+    });
   }
 }

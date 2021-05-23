@@ -12,16 +12,62 @@ import 'package:kothon_app/presentation/communication_module/page_view_items/cal
 import 'package:kothon_app/presentation/communication_module/page_view_items/contacts.dart';
 import 'package:kothon_app/presentation/communication_module/page_view_items/messages.dart';
 import 'package:kothon_app/presentation/communication_module/page_view_items/speed_dial.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sip_ua/sip_ua.dart';
 
 class CommunicationHome extends StatefulWidget {
+  final SIPUAHelper _helper;
+
+  const CommunicationHome(this._helper, {Key key}) : super(key: key);
+
   @override
   _CommunicationHomeState createState() => _CommunicationHomeState();
 }
 
-class _CommunicationHomeState extends State<CommunicationHome> {
+class _CommunicationHomeState extends State<CommunicationHome>
+    implements SipUaHelperListener {
   //
   final pageController = PageController(initialPage: 1);
   // final SIPUAHelper _helper = SIPUAHelper();
+
+  String _dest;
+  SIPUAHelper get helper => widget._helper;
+  TextEditingController _textController;
+  SharedPreferences _preferences;
+
+  String receivedMsg;
+
+  void _loadSettings() async {
+    _preferences = await SharedPreferences.getInstance();
+    _dest = _preferences.getString('dest') ?? 'sip:hello_jssip@tryit.jssip.net';
+    _textController = TextEditingController(text: _dest);
+    _textController.text = _dest;
+
+    this.setState(() {});
+  }
+
+  //
+  String dialNum = '';
+  //
+
+  void _bindEventListeners() {
+    helper.addSipUaHelperListener(this);
+  }
+
+  @override
+  initState() {
+    super.initState();
+    // receivedMsg = "";
+    _bindEventListeners();
+    _loadSettings();
+    // getPermissions();
+  }
+
+  @override
+  void deactivate() {
+    helper.removeSipUaHelperListener(this);
+    super.deactivate();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +98,7 @@ class _CommunicationHomeState extends State<CommunicationHome> {
               children: [
                 SpeedDial(),
                 History(),
-                Contacts(),
+                Contacts(helper),
                 Messages(),
               ],
             ),
@@ -138,5 +184,29 @@ class _CommunicationHomeState extends State<CommunicationHome> {
         },
       ),
     );
+  }
+
+  @override
+  void registrationStateChanged(RegistrationState state) {
+    this.setState(() {});
+  }
+
+  @override
+  void transportStateChanged(TransportState state) {}
+
+  @override
+  void callStateChanged(Call call, CallState callState) {
+    if (callState.state == CallStateEnum.CALL_INITIATION) {
+      Navigator.pushNamed(context, '/callscreen', arguments: call);
+    }
+  }
+
+  @override
+  void onNewMessage(SIPMessageRequest msg) {
+    //Save the incoming message to DB
+    String msgBody = msg.request.body as String;
+    setState(() {
+      receivedMsg = msgBody;
+    });
   }
 }

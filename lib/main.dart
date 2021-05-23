@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:kothon_app/logic/cubit/speed_dial_cubit.dart';
+import 'package:kothon_app/presentation/communication_module/comm_home.dart';
 import 'package:kothon_app/presentation/communication_module/page_view_items/dial_pad.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sip_ua/sip_ua.dart';
@@ -62,6 +63,8 @@ class _MyAppState extends State<MyApp> {
     '/callscreen': ([SIPUAHelper helper, Object arguments]) =>
         CallScreenWidget(helper, arguments as Call),
     '/about': ([SIPUAHelper helper, Object arguments]) => AboutWidget(),
+    '/commHome': ([SIPUAHelper helper, Object arguments]) =>
+        CommunicationHome(helper),
   };
 
   Route<dynamic> _onGenerateRoute(RouteSettings settings) {
