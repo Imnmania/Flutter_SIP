@@ -58,7 +58,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         itemCount: _contactModelList.length,
         itemBuilder: (context, index) {
           return ListTile(
-            title: Text(_contactModelList[index].contactNo),
+            title: Text(_contactModelList[index].displayName),
+            subtitle: Text(_contactModelList[index].contactNo),
           );
         },
       ),
