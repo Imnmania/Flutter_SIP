@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:kothon_app/constants/custom_page_route.dart';
+import 'package:kothon_app/logic/cubit/contact_storage_cubit.dart';
 import 'package:kothon_app/logic/cubit/history_cubit.dart';
 import 'package:kothon_app/logic/cubit/speed_dial_cubit.dart';
 import 'package:kothon_app/presentation/communication_module/comm_home.dart';
@@ -111,6 +112,9 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (context) => HistoryCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ContactStorageCubit(),
         ),
       ],
       child: MaterialApp(

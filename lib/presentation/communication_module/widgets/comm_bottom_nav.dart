@@ -6,6 +6,8 @@ import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kothon_app/constants/kothon_colors.dart';
+import 'package:kothon_app/presentation/communication_module/page_view_items/settings.dart';
+import 'package:transition/transition.dart';
 // import 'package:kothon_app/sip_ua/register.dart';
 // import 'package:sip_ua/sip_ua.dart';
 // import 'package:transition/transition.dart';
@@ -374,7 +376,14 @@ class _CommBottomNavState extends State<CommBottomNav> {
               Icons.settings,
               color: KothonColors.offWhite,
             ),
-            onPressed: () {}),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  Transition(
+                          child: SettingsScreen(),
+                          transitionEffect: TransitionEffect.fade)
+                      .builder());
+            }),
         FocusedMenuItem(
             backgroundColor: KothonColors.dialPadHeaderColor,
             title: Text(

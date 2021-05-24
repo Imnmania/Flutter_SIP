@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kothon_app/constants/kothon_colors.dart';
+// import 'package:kothon_app/data/models/contact_model.dart';
 import 'package:kothon_app/data/models/history_model.dart';
 import 'package:kothon_app/data/models/speed_dial_model.dart';
 import 'package:kothon_app/logic/cubit/contact_cubit.dart';
+// import 'package:kothon_app/logic/cubit/contact_storage_cubit.dart';
 import 'package:kothon_app/logic/cubit/history_cubit.dart';
 import 'package:kothon_app/logic/cubit/speed_dial_cubit.dart';
 import 'package:kothon_app/presentation/common_widgets/show_toast.dart';
@@ -27,6 +29,7 @@ class Contacts extends StatefulWidget {
 class _ContactsState extends State<Contacts> implements SipUaHelperListener {
   Iterable<Contact> _contacts;
   var temp;
+  // List<ContactModel> _contactModelList;
 
   Future<void> getContacts() async {
     // Make sure we already have permissions for contacts when we get to
@@ -36,6 +39,18 @@ class _ContactsState extends State<Contacts> implements SipUaHelperListener {
     //   _contacts = contacts;
     // });
     context.read<ContactCubit>().contactLoad(contacts);
+
+    // testing purpose
+
+    // for (int i = 0; i < contacts.length; i++) {
+    //   context.read<ContactStorageCubit>().addContact(ContactModel(
+    //       contacts.elementAt(i).displayName,
+    //       contacts
+    //           .elementAt(i)
+    //           .phones
+    //           .firstWhere((element) => element != null)
+    //           .value));
+    // }
   }
 
   String _dest;
