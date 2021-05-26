@@ -132,6 +132,9 @@ class _ContactsState extends State<Contacts> implements SipUaHelperListener {
 
   @override
   Widget build(BuildContext context) {
+    // var sHeight = MediaQuery.of(context).size.height;
+    var sWidth = MediaQuery.of(context).size.width;
+    //
     _contactModelList =
         context.watch<ContactStorageCubit>().state.contactModelList;
 
@@ -147,14 +150,39 @@ class _ContactsState extends State<Contacts> implements SipUaHelperListener {
             children: [
               Positioned(
                 top: 0,
-                child: MaterialButton(
-                    child: Text("Import Contact"),
-                    onPressed: () async {
-                      await getContacts();
-                    }),
+                child: Container(
+                  height: 40,
+                  color: KothonColors.dialPadHeaderColor,
+                  width: sWidth,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Text(
+                          'Contact List',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: KothonColors.backgroundColor,
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                          icon: FaIcon(
+                            FontAwesomeIcons.download,
+                            size: 16,
+                            color: KothonColors.backgroundColor,
+                          ),
+                          splashRadius: 1,
+                          onPressed: () async {
+                            await getContacts();
+                          }),
+                    ],
+                  ),
+                ),
               ),
               Container(
-                padding: EdgeInsets.only(top: 30),
+                padding: EdgeInsets.only(top: 40),
                 child: MediaQuery.removePadding(
                   context: context,
                   removeTop: true,

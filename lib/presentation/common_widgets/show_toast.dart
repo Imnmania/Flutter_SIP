@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:kothon_app/constants/kothon_colors.dart';
 
 Future<ToastFuture> futureToast({
   @required BuildContext context,
@@ -15,5 +16,8 @@ Future<ToastFuture> futureToast({
     duration: Duration(seconds: 2),
     curve: Curves.elasticOut,
     reverseCurve: Curves.linear,
+    isHideKeyboard: true,
+    backgroundColor: KothonColors.dialPadHeaderColor,
+    textStyle: TextStyle(color: KothonColors.backgroundColor),
   );
 }

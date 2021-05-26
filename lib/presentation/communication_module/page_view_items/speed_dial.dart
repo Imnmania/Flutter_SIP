@@ -127,17 +127,15 @@ class _SpeedDialState extends State<SpeedDial> implements SipUaHelperListener {
               // padding: EdgeInsets.all(10),
               width: sWidth,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10),
+                    // margin: EdgeInsets.symmetric(horizontal: 10),
+                    height: 40,
                     decoration: BoxDecoration(
-                      color: KothonColors.homeTopSectionBackground,
-                      border: Border.all(
-                        color: KothonColors.barIconColor,
-                        width: 1,
-                        style: BorderStyle.solid,
-                      ),
-                      borderRadius: BorderRadius.circular(10),
+                      color: KothonColors.dialPadHeaderColor,
+                      // borderRadius: BorderRadius.circular(10),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -152,17 +150,18 @@ class _SpeedDialState extends State<SpeedDial> implements SipUaHelperListener {
                         Container(
                           padding: const EdgeInsets.only(left: 10.0),
                           child: Text(
-                            'Speed Dials',
+                            'Speed Dial',
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
+                              color: KothonColors.backgroundColor,
                             ),
                           ),
                         ),
                         IconButton(
                             icon: FaIcon(
                               FontAwesomeIcons.plus,
-                              size: 18,
-                              color: KothonColors.barIconColor,
+                              size: 16,
+                              color: KothonColors.backgroundColor,
                             ),
                             onPressed: () async {
                               await speedDialAddDialog(
@@ -181,7 +180,7 @@ class _SpeedDialState extends State<SpeedDial> implements SipUaHelperListener {
                   //   color: Colors.black,
                   // ),
                   Container(
-                    height: sHeight * 0.75,
+                    height: sHeight * 0.77,
                     padding: EdgeInsets.only(
                       bottom: 10,
                     ),
@@ -197,6 +196,7 @@ class _SpeedDialState extends State<SpeedDial> implements SipUaHelperListener {
                         separatorBuilder: (context, index) => Divider(
                           color: Colors.black,
                         ),
+                        physics: BouncingScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: speedDialList.length,
                         itemBuilder: (context, index) {

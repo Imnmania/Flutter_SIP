@@ -305,7 +305,7 @@ class _CommBottomNavState extends State<CommBottomNav> {
     bool _isSelected = false;
     return FocusedMenuHolder(
       menuWidth: MediaQuery.of(context).size.width * 0.35,
-      blurSize: 3,
+      blurSize: 0,
       menuItemExtent: 50,
       menuBoxDecoration: BoxDecoration(
         color: KothonColors.dialPadHeaderColor.withOpacity(0),
@@ -315,7 +315,7 @@ class _CommBottomNavState extends State<CommBottomNav> {
       ),
       // duration: Duration(milliseconds: 100),
       animateMenuItems: false,
-      blurBackgroundColor: Colors.black54,
+      blurBackgroundColor: Colors.black54.withOpacity(0),
       openWithTap: true, // Open Focused-Menu on Tap rather than Long Press
       // menuOffset: 10.0, // Offset value to show menuItem from the selected item
       bottomOffsetHeight:
