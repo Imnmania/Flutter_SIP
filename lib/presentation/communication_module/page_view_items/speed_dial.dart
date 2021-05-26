@@ -112,122 +112,121 @@ class _SpeedDialState extends State<SpeedDial> implements SipUaHelperListener {
   Widget build(BuildContext context) {
     //
     var sWidth = MediaQuery.of(context).size.width;
-    var sHeight = MediaQuery.of(context).size.height;
+    // var sHeight = MediaQuery.of(context).size.height;
 
     speedDialList = context.watch<SpeedDialCubit>().state.speedDialList;
     //
     return Scaffold(
-      body: Stack(
-        alignment: Alignment.topCenter,
-        fit: StackFit.loose,
-        children: [
-          Positioned(
-            top: 0,
-            child: Container(
-              // padding: EdgeInsets.all(10),
-              width: sWidth,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
+      body: Container(
+        // padding: EdgeInsets.all(10),
+        width: sWidth,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              // margin: EdgeInsets.symmetric(horizontal: 10),
+              height: 40,
+              decoration: BoxDecoration(
+                color: KothonColors.dialPadHeaderColor,
+                // borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    // margin: EdgeInsets.symmetric(horizontal: 10),
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: KothonColors.dialPadHeaderColor,
-                      // borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        // Opacity(
-                        //   opacity: 0,
-                        //   child: IconButton(
-                        //     icon: FaIcon(FontAwesomeIcons.plus),
-                        //     onPressed: null,
-                        //   ),
-                        // ),
-                        Container(
-                          padding: const EdgeInsets.only(left: 10.0),
-                          child: Text(
-                            'Speed Dial',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: KothonColors.backgroundColor,
-                            ),
-                          ),
-                        ),
-                        IconButton(
-                            icon: FaIcon(
-                              FontAwesomeIcons.plus,
-                              size: 16,
-                              color: KothonColors.backgroundColor,
-                            ),
-                            onPressed: () async {
-                              await speedDialAddDialog(
-                                context: context,
-                                nameController: _nameController,
-                                contactController: _contactController,
-                              );
-                              print(_nameController.text);
-                              print(_contactController.text);
-                            }),
-                      ],
-                    ),
-                  ),
-                  // Divider(
-                  //   height: 5,
-                  //   color: Colors.black,
+                  // Opacity(
+                  //   opacity: 0,
+                  //   child: IconButton(
+                  //     icon: FaIcon(FontAwesomeIcons.plus),
+                  //     onPressed: null,
+                  //   ),
                   // ),
                   Container(
-                    height: sHeight * 0.77,
-                    padding: EdgeInsets.only(
-                      bottom: 10,
-                    ),
-                    child: MediaQuery.removePadding(
-                      context: context,
-                      removeTop: true,
-                      child: ListView.separated(
-                        // separatorBuilder: (context, index) {
-                        // return Divider(
-                        // height: 5,
-                        // );
-                        // },
-                        separatorBuilder: (context, index) => Divider(
-                          color: Colors.black,
-                        ),
-                        physics: BouncingScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: speedDialList.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            leading: CircleAvatar(
-                              child: Text(speedDialList[index].name[0]),
-                              backgroundColor: Theme.of(context).accentColor,
-                            ),
-                            title: Text(speedDialList[index].name),
-                            subtitle: Text(speedDialList[index].contact),
-                            onTap: () {
-                              // context
-                              //     .read<SpeedDialCubit>()
-                              //     .delSpeedDial(index);
-                              showTheBottomSheet(
-                                context: context,
-                                contactName: speedDialList[index].name,
-                                contactNumber: speedDialList[index].contact,
-                                index: index,
-                              );
-                            },
-                          );
-                        },
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      'Speed Dial',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: KothonColors.backgroundColor,
                       ),
                     ),
                   ),
+                  IconButton(
+                      icon: FaIcon(
+                        FontAwesomeIcons.plus,
+                        size: 16,
+                        color: KothonColors.backgroundColor,
+                      ),
+                      onPressed: () async {
+                        await speedDialAddDialog(
+                          context: context,
+                          nameController: _nameController,
+                          contactController: _contactController,
+                        );
+                        print(_nameController.text);
+                        print(_contactController.text);
+                      }),
                 ],
               ),
             ),
-          ),
-        ],
+            // Divider(
+            //   height: 5,
+            //   color: Colors.black,
+            // ),
+            (speedDialList.length < 1)
+                ? Flexible(
+                    child: Center(
+                      child: Text('No speed dials found'),
+                    ),
+                  )
+                : Flexible(
+                    child: Container(
+                      // height: sHeight * 0.77,
+                      padding: EdgeInsets.only(
+                        bottom: 10,
+                      ),
+                      child: MediaQuery.removePadding(
+                        context: context,
+                        removeTop: true,
+                        child: ListView.separated(
+                          // separatorBuilder: (context, index) {
+                          // return Divider(
+                          // height: 5,
+                          // );
+                          // },
+                          separatorBuilder: (context, index) => Divider(
+                            color: Colors.black,
+                          ),
+                          physics: BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: speedDialList.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              leading: CircleAvatar(
+                                child: Text(speedDialList[index].name[0]),
+                                backgroundColor: Theme.of(context).accentColor,
+                              ),
+                              title: Text(speedDialList[index].name),
+                              subtitle: Text(speedDialList[index].contact),
+                              onTap: () {
+                                // context
+                                //     .read<SpeedDialCubit>()
+                                //     .delSpeedDial(index);
+                                showTheBottomSheet(
+                                  context: context,
+                                  contactName: speedDialList[index].name,
+                                  contactNumber: speedDialList[index].contact,
+                                  index: index,
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+          ],
+        ),
       ),
     );
   }
