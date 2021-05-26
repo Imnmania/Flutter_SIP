@@ -20,6 +20,11 @@ class HistoryCubit extends Cubit<HistoryState> with HydratedMixin {
     emit(HistoryState(historyList: state.historyList));
   }
 
+  void clearHistory() {
+    state.historyList.clear();
+    emit(HistoryState(historyList: state.historyList));
+  }
+
   @override
   HistoryState fromJson(Map<String, dynamic> json) {
     return HistoryState.fromMap(json);

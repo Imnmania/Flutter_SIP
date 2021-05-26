@@ -100,44 +100,104 @@ class _HistoryState extends State<History> implements SipUaHelperListener {
     historyListData = context.watch<HistoryCubit>().state.historyList;
     //
     return Scaffold(
-      body: Container(
-        child: MediaQuery.removePadding(
-          context: context,
-          removeTop: true,
-          child: ListView.separated(
-            reverse: true,
-            shrinkWrap: true,
-            separatorBuilder: (context, index) {
-              return Divider(
-                color: Colors.black,
-                height: 2,
-              );
-            },
-            itemCount: historyListData.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                leading: CircleAvatar(
-                  child: Text(historyListData[index].name[0]),
-                  backgroundColor: Theme.of(context).accentColor,
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            // margin: EdgeInsets.symmetric(horizontal: 10),
+            height: 40,
+            decoration: BoxDecoration(
+              color: KothonColors.dialPadHeaderColor,
+              // borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Opacity(
+                //   opacity: 0,
+                //   child: IconButton(
+                //     icon: FaIcon(FontAwesomeIcons.plus),
+                //     onPressed: null,
+                //   ),
+                // ),
+                Container(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Text(
+                    'Call History',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: KothonColors.backgroundColor,
+                    ),
+                  ),
                 ),
-                title: Text(historyListData[index].name),
-                subtitle: Text(historyListData[index].contact),
-                trailing: Text(
-                  historyListData[index].timeStamp,
-                  style: TextStyle(fontSize: 10),
+                IconButton(
+                  icon: FaIcon(
+                    FontAwesomeIcons.recycle,
+                    size: 16,
+                    color: KothonColors.backgroundColor,
+                  ),
+                  onPressed: () async {
+                    // await speedDialAddDialog(
+                    //   context: context,
+                    //   nameController: _nameController,
+                    //   contactController: _contactController,
+                    // );
+                    // print(_nameController.text);
+                    // print(_contactController.text);
+                    context.read<HistoryCubit>().clearHistory();
+                  },
                 ),
-                onTap: () {
-                  showTheBottomSheet(
-                    context: context,
-                    contactName: historyListData[index].name,
-                    contactNumber: historyListData[index].contact,
-                    index: index,
-                  );
-                },
-              );
-            },
+              ],
+            ),
           ),
-        ),
+          (historyListData.length < 1)
+              ? Flexible(
+                  child: Center(
+                    child: Text('Empty History'),
+                  ),
+                )
+              : Flexible(
+                  child: Container(
+                    child: MediaQuery.removePadding(
+                      context: context,
+                      removeTop: true,
+                      child: ListView.separated(
+                        reverse: true,
+                        shrinkWrap: true,
+                        separatorBuilder: (context, index) {
+                          return Divider(
+                            color: Colors.black,
+                            height: 2,
+                          );
+                        },
+                        itemCount: historyListData.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            leading: CircleAvatar(
+                              child: Text(historyListData[index].name[0]),
+                              backgroundColor: Theme.of(context).accentColor,
+                            ),
+                            title: Text(historyListData[index].name),
+                            subtitle: Text(historyListData[index].contact),
+                            trailing: Text(
+                              historyListData[index].timeStamp,
+                              style: TextStyle(fontSize: 10),
+                            ),
+                            onTap: () {
+                              showTheBottomSheet(
+                                context: context,
+                                contactName: historyListData[index].name,
+                                contactNumber: historyListData[index].contact,
+                                index: index,
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+        ],
       ),
     );
   }
