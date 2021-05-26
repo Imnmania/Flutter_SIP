@@ -144,89 +144,107 @@ class _ContactsState extends State<Contacts> implements SipUaHelperListener {
           //
         },
         builder: (context, state) {
-          return Stack(
-            alignment: Alignment.topCenter,
-            fit: StackFit.loose,
+          return Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Positioned(
-                top: 0,
-                child: Container(
-                  height: 40,
-                  color: KothonColors.dialPadHeaderColor,
-                  width: sWidth,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Text(
-                          'Contact List',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: KothonColors.backgroundColor,
+              Container(
+                height: 40,
+                color: KothonColors.dialPadHeaderColor,
+                width: sWidth,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                        'Contact List',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: KothonColors.backgroundColor,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                        icon: FaIcon(
+                          FontAwesomeIcons.sync,
+                          size: 16,
+                          color: KothonColors.backgroundColor,
+                        ),
+                        splashRadius: 1,
+                        onPressed: () async {
+                          await getContacts();
+                        }),
+                  ],
+                ),
+              ),
+              (_contactModelList.length < 1)
+                  ? Flexible(
+                      child: Center(
+                        child: TextButton(
+                          child: Text(
+                            'Click Here to import contact list',
+                            style: TextStyle(color: Colors.black87),
+                          ),
+                          onPressed: () async {
+                            await getContacts();
+                          },
+                        ),
+                      ),
+                    )
+                  : Flexible(
+                      child: Container(
+                        // padding: EdgeInsets.only(top: 40),
+                        child: MediaQuery.removePadding(
+                          context: context,
+                          removeTop: true,
+                          child: ListView.separated(
+                            separatorBuilder: (context, index) => Divider(
+                              color: Colors.black,
+                            ),
+                            physics: BouncingScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: _contactModelList.length ?? 0,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                leading:
+                                    // (contact.avatar != null && contact.avatar.isNotEmpty)
+                                    // ? CircleAvatar(
+                                    // backgroundImage: MemoryImage(contact.avatar),
+                                    // )
+                                    // :
+                                    CircleAvatar(
+                                  child: Text(
+                                      _contactModelList[index].displayName[0]),
+                                  backgroundColor:
+                                      Theme.of(context).accentColor,
+                                ),
+                                title: Text(
+                                    _contactModelList[index].displayName ??
+                                        'No Name'),
+                                // subtitle: Text(contact.phones.elementAt(0).value),
+                                // subtitle: Text((contact.phones.length > 0)
+                                //     ? contact.phones.first.value
+                                //     : "No contact"),
+                                subtitle:
+                                    Text(_contactModelList[index].contactNo),
+
+                                onTap: () {
+                                  showTheBottomSheet(
+                                    context: context,
+                                    contactName:
+                                        _contactModelList[index].displayName ??
+                                            'No Name',
+                                    contactNumber:
+                                        _contactModelList[index].contactNo,
+                                  );
+                                },
+                                // contentPadding: EdgeInsets.all(10),
+                              );
+                            },
                           ),
                         ),
                       ),
-                      IconButton(
-                          icon: FaIcon(
-                            FontAwesomeIcons.download,
-                            size: 16,
-                            color: KothonColors.backgroundColor,
-                          ),
-                          splashRadius: 1,
-                          onPressed: () async {
-                            await getContacts();
-                          }),
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.only(top: 40),
-                child: MediaQuery.removePadding(
-                  context: context,
-                  removeTop: true,
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) => Divider(
-                      color: Colors.black,
                     ),
-                    physics: BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: _contactModelList.length ?? 0,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        leading:
-                            // (contact.avatar != null && contact.avatar.isNotEmpty)
-                            // ? CircleAvatar(
-                            // backgroundImage: MemoryImage(contact.avatar),
-                            // )
-                            // :
-                            CircleAvatar(
-                          child: Text(_contactModelList[index].displayName[0]),
-                          backgroundColor: Theme.of(context).accentColor,
-                        ),
-                        title: Text(
-                            _contactModelList[index].displayName ?? 'No Name'),
-                        // subtitle: Text(contact.phones.elementAt(0).value),
-                        // subtitle: Text((contact.phones.length > 0)
-                        //     ? contact.phones.first.value
-                        //     : "No contact"),
-                        subtitle: Text(_contactModelList[index].contactNo),
-
-                        onTap: () {
-                          showTheBottomSheet(
-                            context: context,
-                            contactName: _contactModelList[index].displayName ??
-                                'No Name',
-                            contactNumber: _contactModelList[index].contactNo,
-                          );
-                        },
-                        // contentPadding: EdgeInsets.all(10),
-                      );
-                    },
-                  ),
-                ),
-              ),
             ],
           );
         },

@@ -132,7 +132,7 @@ class _HistoryState extends State<History> implements SipUaHelperListener {
                 ),
                 IconButton(
                   icon: FaIcon(
-                    FontAwesomeIcons.recycle,
+                    FontAwesomeIcons.solidTrashAlt,
                     size: 16,
                     color: KothonColors.backgroundColor,
                   ),

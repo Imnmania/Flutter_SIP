@@ -176,7 +176,21 @@ class _SpeedDialState extends State<SpeedDial> implements SipUaHelperListener {
             (speedDialList.length < 1)
                 ? Flexible(
                     child: Center(
-                      child: Text('No speed dials found'),
+                      child: TextButton(
+                        child: Text(
+                          'Click here to add speed dials',
+                          style: TextStyle(color: Colors.black87),
+                        ),
+                        onPressed: () async {
+                          await speedDialAddDialog(
+                            context: context,
+                            nameController: _nameController,
+                            contactController: _contactController,
+                          );
+                          print(_nameController.text);
+                          print(_contactController.text);
+                        },
+                      ),
                     ),
                   )
                 : Flexible(
