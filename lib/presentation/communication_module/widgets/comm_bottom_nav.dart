@@ -308,14 +308,22 @@ class _CommBottomNavState extends State<CommBottomNav> {
       blurSize: 0,
       menuItemExtent: 50,
       menuBoxDecoration: BoxDecoration(
-        color: KothonColors.dialPadHeaderColor.withOpacity(0),
-        // borderRadius: BorderRadius.all(
-        //   Radius.circular(0.0),
-        // ),
-      ),
+          // color: KothonColors.dialPadHeaderColor.withOpacity(0),
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 5,
+              color: Colors.black.withOpacity(0.15),
+              spreadRadius: 5,
+            )
+          ]
+          // borderRadius: BorderRadius.all(
+          //   Radius.circular(0.0),
+          // ),
+          ),
+
       // duration: Duration(milliseconds: 100),
       animateMenuItems: false,
-      blurBackgroundColor: Colors.black54.withOpacity(0),
+      blurBackgroundColor: Colors.black12.withOpacity(0.1),
       openWithTap: true, // Open Focused-Menu on Tap rather than Long Press
       // menuOffset: 10.0, // Offset value to show menuItem from the selected item
       bottomOffsetHeight:
