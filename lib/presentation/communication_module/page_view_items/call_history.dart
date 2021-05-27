@@ -268,6 +268,18 @@ class _HistoryState extends State<History> implements SipUaHelperListener {
                           setState(() {
                             dialNum = contactNumber;
                           });
+
+                          //============================== Connection Check ============================//
+                          if (EnumHelper.getName(helper.registerState.state) !=
+                              'Registered') {
+                            Navigator.pop(context);
+                            futureToast(
+                                context: context,
+                                message:
+                                    'Please connect to your office network!');
+                            return null;
+                          }
+
                           context.read<HistoryCubit>().addHistory(HistoryModel(
                               contactName,
                               dialNum,
@@ -299,6 +311,17 @@ class _HistoryState extends State<History> implements SipUaHelperListener {
                           setState(() {
                             dialNum = contactNumber;
                           });
+
+                          //============================== Connection Check ============================//
+                          if (EnumHelper.getName(helper.registerState.state) !=
+                              'Registered') {
+                            Navigator.pop(context);
+                            futureToast(
+                                context: context,
+                                message:
+                                    'Please connect to your office network!');
+                            return null;
+                          }
 
                           context.read<HistoryCubit>().addHistory(HistoryModel(
                               contactName,

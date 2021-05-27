@@ -318,6 +318,17 @@ class _ContactsState extends State<Contacts> implements SipUaHelperListener {
                             dialNum = contactNumber;
                           });
 
+                          //============================== Connection Check ============================//
+                          if (EnumHelper.getName(helper.registerState.state) !=
+                              'Registered') {
+                            Navigator.pop(context);
+                            futureToast(
+                                context: context,
+                                message:
+                                    'Please connect to your office network!');
+                            return null;
+                          }
+
                           context.read<HistoryCubit>().addHistory(HistoryModel(
                               contactName,
                               dialNum,
@@ -325,6 +336,16 @@ class _ContactsState extends State<Contacts> implements SipUaHelperListener {
                                   format: 'M j, Y, h:i a')));
 
                           Navigator.pop(context);
+
+                          if (EnumHelper.getName(helper.registerState.state) !=
+                              'Registered') {
+                            futureToast(
+                                context: context,
+                                message:
+                                    'Please connect to your office network!');
+                            return null;
+                          }
+
                           return _handleCall(context, true);
                         },
                       ),
@@ -350,6 +371,17 @@ class _ContactsState extends State<Contacts> implements SipUaHelperListener {
                             dialNum = contactNumber;
                           });
 
+                          //============================== Connection Check ============================//
+                          if (EnumHelper.getName(helper.registerState.state) !=
+                              'Registered') {
+                            Navigator.pop(context);
+                            futureToast(
+                                context: context,
+                                message:
+                                    'Please connect to your office network!');
+                            return null;
+                          }
+
                           context.read<HistoryCubit>().addHistory(HistoryModel(
                               contactName,
                               dialNum,
@@ -357,6 +389,7 @@ class _ContactsState extends State<Contacts> implements SipUaHelperListener {
                                   format: 'M j, Y, h:i a')));
 
                           Navigator.pop(context);
+
                           return _handleCall(context);
                         },
                       ),

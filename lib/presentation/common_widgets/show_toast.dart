@@ -13,7 +13,7 @@ Future<ToastFuture> futureToast({
     reverseAnimation: StyledToastAnimation.fade,
     position: StyledToastPosition.bottom,
     animDuration: Duration(seconds: 1),
-    duration: Duration(seconds: 2),
+    duration: Duration(seconds: 3),
     curve: Curves.elasticOut,
     reverseCurve: Curves.linear,
     isHideKeyboard: true,

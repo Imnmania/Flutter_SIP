@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kothon_app/constants/kothon_colors.dart';
 import 'package:kothon_app/data/models/history_model.dart';
 import 'package:kothon_app/logic/cubit/history_cubit.dart';
+import 'package:kothon_app/presentation/common_widgets/show_toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sip_ua/sip_ua.dart';
 
@@ -121,7 +122,24 @@ class _DialPadPageState extends State<DialPadPage>
                       FontAwesomeIcons.phoneAlt,
                     ),
                     onPressed: () {
+                      if (dialNum == null || dialNum.isEmpty) {
+                        futureToast(
+                            context: context, message: 'Invalid Number!');
+                        return null;
+                      }
                       print('sip:$dialNum@$_serverIP');
+
+                      //============================== Connection Check ============================//
+                      if (EnumHelper.getName(helper.registerState.state) !=
+                          'Registered') {
+                        // Navigator.pop(context);
+                        futureToast(
+                            context: context,
+                            message: 'Please connect to your office network!');
+                        return null;
+                      }
+
+                      //============================== Call History Add ===========================//
                       context.read<HistoryCubit>().addHistory(HistoryModel(
                           'N/A',
                           dialNum,
@@ -142,6 +160,22 @@ class _DialPadPageState extends State<DialPadPage>
                       FontAwesomeIcons.video,
                     ),
                     onPressed: () {
+                      if (dialNum == null || dialNum.isEmpty) {
+                        futureToast(
+                            context: context, message: 'Invalid Number!');
+                        return null;
+                      }
+
+                      //============================== Connection Check ============================//
+                      if (EnumHelper.getName(helper.registerState.state) !=
+                          'Registered') {
+                        // Navigator.pop(context);
+                        futureToast(
+                            context: context,
+                            message: 'Please connect to your office network!');
+                        return null;
+                      }
+
                       context.read<HistoryCubit>().addHistory(HistoryModel(
                           'N/A',
                           dialNum,
