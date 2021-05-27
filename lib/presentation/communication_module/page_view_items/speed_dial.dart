@@ -265,10 +265,10 @@ class _SpeedDialState extends State<SpeedDial> implements SipUaHelperListener {
       builder: (context) {
         return Container(
           decoration: BoxDecoration(
-            color: KothonColors.barBodyColor,
+            color: KothonColors.dialPadHeaderColor,
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(25),
-              topRight: Radius.circular(25),
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10),
             ),
           ),
           child: ListView(
@@ -284,9 +284,15 @@ class _SpeedDialState extends State<SpeedDial> implements SipUaHelperListener {
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
+                      color: KothonColors.backgroundColor,
                     ),
                   ),
-                  Text(contactNumber),
+                  Text(
+                    contactNumber,
+                    style: TextStyle(
+                      color: KothonColors.backgroundColor,
+                    ),
+                  ),
                 ],
               ),
               SizedBox(
@@ -315,7 +321,15 @@ class _SpeedDialState extends State<SpeedDial> implements SipUaHelperListener {
                           return _handleCall(context, true);
                         },
                       ),
-                      Text('Audio Call'),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          'Audio Call',
+                          style: TextStyle(
+                            color: KothonColors.backgroundColor,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   Column(
@@ -339,7 +353,15 @@ class _SpeedDialState extends State<SpeedDial> implements SipUaHelperListener {
                           return _handleCall(context);
                         },
                       ),
-                      Text('Video Call'),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          'Video Call',
+                          style: TextStyle(
+                            color: KothonColors.backgroundColor,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   Column(
@@ -352,7 +374,15 @@ class _SpeedDialState extends State<SpeedDial> implements SipUaHelperListener {
                           Navigator.pop(context);
                         },
                       ),
-                      Text('Message'),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          'Message',
+                          style: TextStyle(
+                            color: KothonColors.backgroundColor,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   Column(
@@ -369,7 +399,15 @@ class _SpeedDialState extends State<SpeedDial> implements SipUaHelperListener {
                               message: "Removed from speed dial");
                         },
                       ),
-                      Text('Remove'),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          'Remove',
+                          style: TextStyle(
+                            color: KothonColors.backgroundColor,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ],

@@ -266,7 +266,7 @@ class _ContactsState extends State<Contacts> implements SipUaHelperListener {
           topRight: Radius.circular(10),
         ),
       ),
-      // barrierColor: Colors.black.withOpacity(0.6),
+      barrierColor: Colors.black.withOpacity(0.6),
       context: context,
       builder: (context) {
         return Container(
@@ -424,7 +424,7 @@ class _ContactsState extends State<Contacts> implements SipUaHelperListener {
                 ],
               ),
               SizedBox(
-                height: 40,
+                height: 30,
               ),
             ],
           ),
