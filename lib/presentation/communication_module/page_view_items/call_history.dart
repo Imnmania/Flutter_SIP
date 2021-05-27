@@ -127,6 +127,8 @@ class _HistoryState extends State<History> implements SipUaHelperListener {
                     style: TextStyle(
                       fontSize: 16,
                       color: KothonColors.backgroundColor,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1,
                     ),
                   ),
                 ),
@@ -153,7 +155,7 @@ class _HistoryState extends State<History> implements SipUaHelperListener {
           (historyListData.length < 1)
               ? Flexible(
                   child: Center(
-                    child: Text('Empty History'),
+                    child: Text('No calls found!'),
                   ),
                 )
               : Flexible(

@@ -161,6 +161,8 @@ class _ContactsState extends State<Contacts> implements SipUaHelperListener {
                         style: TextStyle(
                           fontSize: 16,
                           color: KothonColors.backgroundColor,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1,
                         ),
                       ),
                     ),
