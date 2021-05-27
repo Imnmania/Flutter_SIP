@@ -94,73 +94,76 @@ class _DialPadPageState extends State<DialPadPage>
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Stack(
-          children: [
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                margin: EdgeInsets.only(bottom: 100),
-                child: _dialPadWidget(context),
+    double topPadding = MediaQuery.of(context).padding.top;
+
+    return Scaffold(
+      body: Stack(
+        children: [
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              margin: EdgeInsets.only(bottom: 100),
+              child: _dialPadWidget(context: context, topPadding: topPadding),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FloatingActionButton(
+                    backgroundColor: KothonColors.greenBtn,
+                    heroTag: 'tag3',
+                    elevation: 0,
+                    child: FaIcon(
+                      FontAwesomeIcons.phoneAlt,
+                    ),
+                    onPressed: () {
+                      print('sip:$dialNum@$_serverIP');
+                      context.read<HistoryCubit>().addHistory(HistoryModel(
+                          'N/A',
+                          dialNum,
+                          DateTimeFormat.format(DateTime.now(),
+                              format: 'M j, Y, h:i a')));
+
+                      return _handleCall(context, true);
+                    },
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  FloatingActionButton(
+                    backgroundColor: KothonColors.greenBtn,
+                    heroTag: 'tag4',
+                    elevation: 0,
+                    child: FaIcon(
+                      FontAwesomeIcons.video,
+                    ),
+                    onPressed: () {
+                      context.read<HistoryCubit>().addHistory(HistoryModel(
+                          'N/A',
+                          dialNum,
+                          DateTimeFormat.format(DateTime.now(),
+                              format: 'M j, Y, h:i a')));
+
+                      return _handleCall(context);
+                    },
+                  ),
+                ],
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    FloatingActionButton(
-                      backgroundColor: KothonColors.greenBtn,
-                      heroTag: 'tag3',
-                      elevation: 0,
-                      child: FaIcon(
-                        FontAwesomeIcons.phoneAlt,
-                      ),
-                      onPressed: () {
-                        print('sip:$dialNum@$_serverIP');
-                        context.read<HistoryCubit>().addHistory(HistoryModel(
-                            'N/A',
-                            dialNum,
-                            DateTimeFormat.format(DateTime.now(),
-                                format: 'M j, Y, h:i a')));
-
-                        return _handleCall(context, true);
-                      },
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    FloatingActionButton(
-                      backgroundColor: KothonColors.greenBtn,
-                      heroTag: 'tag4',
-                      elevation: 0,
-                      child: FaIcon(
-                        FontAwesomeIcons.video,
-                      ),
-                      onPressed: () {
-                        context.read<HistoryCubit>().addHistory(HistoryModel(
-                            'N/A',
-                            dialNum,
-                            DateTimeFormat.format(DateTime.now(),
-                                format: 'M j, Y, h:i a')));
-
-                        return _handleCall(context);
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
-  _dialPadWidget(BuildContext context) {
+  _dialPadWidget({
+    @required BuildContext context,
+    @required double topPadding,
+  }) {
     TextStyle style1 = TextStyle(
       fontSize: 40,
       fontWeight: FontWeight.bold,
@@ -185,13 +188,14 @@ class _DialPadPageState extends State<DialPadPage>
         mainAxisSize: MainAxisSize.min,
         children: [
           /// Back Button and Top Dark Area ///
-          Expanded(
+          Flexible(
             child: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               color: Color(0xFF3C5364),
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 30),
                 child: GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
