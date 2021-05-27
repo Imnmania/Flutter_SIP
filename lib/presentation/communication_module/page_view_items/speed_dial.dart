@@ -212,6 +212,7 @@ class _SpeedDialState extends State<SpeedDial> implements SipUaHelperListener {
                           // },
                           separatorBuilder: (context, index) => Divider(
                             color: Colors.black,
+                            height: 2,
                           ),
                           physics: BouncingScrollPhysics(),
                           shrinkWrap: true,

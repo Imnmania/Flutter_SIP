@@ -202,6 +202,7 @@ class _ContactsState extends State<Contacts> implements SipUaHelperListener {
                           child: ListView.separated(
                             separatorBuilder: (context, index) => Divider(
                               color: Colors.black,
+                              height: 2,
                             ),
                             physics: BouncingScrollPhysics(),
                             shrinkWrap: true,
